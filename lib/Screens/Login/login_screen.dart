@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skinsstonks_mobile/components/main_app_bar.dart';
 
 import 'components/body.dart';
 
@@ -8,8 +7,14 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: MainAppBar(
-        titleText: "Sign In",
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          "Sign In",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: Body(),
     );
