@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:skinsstonks_mobile/constants.dart';
-
+import 'package:skinsstonks_mobile/Screens/Login/login_screen.dart';
 
 class HaveAccountCheck extends StatelessWidget {
-
-  final bool login;
-  final Function press;
-
   const HaveAccountCheck({
     Key? key,
-    this.login = true,
-    required this.press,
   }) : super(key: key);
 
   @override
@@ -19,23 +12,28 @@ class HaveAccountCheck extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          login ? "Don't have an account? " : "Already have an account? ",
-          style: TextStyle(
-              color: kPrimaryColor
-          ),
+          "Already have an account? ",
+          style: TextStyle(color: Colors.white),
         ),
         GestureDetector(
-            onTap: () => {
-              press()
-            },
-            child: Text(
-              login ? "Sign Up" : "Sign In",
-              style: TextStyle(
-                color: kPrimaryHeadingColor,
-                fontWeight: FontWeight.bold,
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return LoginScreen();
+                },
               ),
             )
-        )
+          },
+          child: Text(
+            "Sign In",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ],
     );
   }

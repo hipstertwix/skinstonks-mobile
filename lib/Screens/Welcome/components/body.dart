@@ -1,47 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:skinsstonks_mobile/Screens/Login/login_screen.dart';
 import 'package:skinsstonks_mobile/Screens/Signup/signup_screen.dart';
-import 'package:skinsstonks_mobile/Screens/Welcome/components/background.dart';
+import 'package:skinsstonks_mobile/components/background.dart';
+import 'package:skinsstonks_mobile/components/have_account_check.dart';
 import 'package:skinsstonks_mobile/components/rounded_button.dart';
-import 'package:skinsstonks_mobile/constants.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-        child: SingleChildScrollView(
-            child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        SvgPicture.asset(
-          "assets/images/undraw_Outer_space_drqu.svg",
-          height: size.height * 0.25,
-        ),
-        SizedBox(height: size.height * 0.05),
-        RoundedButton(
-          text: "LOGIN",
-          color: kPrimaryColor,
-          press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
-          },
-        ),
-        RoundedButton(
-          text: "SIGNUP",
-          color: kPrimaryLightColor,
-          textColor: kPrimaryHeadingColor,
-          press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignupScreen()),
-            );
-          },
-        )
-      ],
-    )));
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SvgPicture.asset(
+            "assets/images/Skinstonks_ICON_WHITE.svg",
+            width: size.width * 0.38,
+            color: Colors.white,
+          ),
+          SizedBox(height: 30),
+          Text(
+            "skinstonks",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 38,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 15),
+          SizedBox(
+            width: 0.75 * size.width,
+            child: Text(
+              "Go making big money by registering to this total legit and not scam mobile app.",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(height: 0.15 * size.height),
+          RoundedButton(
+            text: "GET STARTED",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignupScreen()),
+              );
+            },
+          ),
+          SizedBox(height: 10),
+          HaveAccountCheck(),
+        ],
+      ),
+    );
   }
 }

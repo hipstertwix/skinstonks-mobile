@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skinsstonks_mobile/Screens/Welcome/welcome_screen.dart';
 import 'package:skinsstonks_mobile/constants.dart';
 
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Auth',
       theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
-      ),
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+          fontFamily: GoogleFonts.montserrat().fontFamily),
       home: WelcomeScreen(),
     );
   }
