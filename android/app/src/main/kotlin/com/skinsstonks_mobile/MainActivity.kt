@@ -1,4 +1,4 @@
-package com.skinsstonks_mobile
+package com.skinstonks_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

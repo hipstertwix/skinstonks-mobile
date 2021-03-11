@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:skinsstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/constants.dart';
 
 class Background extends StatelessWidget {
   final Widget child;
   final Alignment alignment;
 
-  const Background({Key? key, required this.alignment, required this.child})
-      : super(key: key);
+  const Background({Key? key, required this.alignment, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

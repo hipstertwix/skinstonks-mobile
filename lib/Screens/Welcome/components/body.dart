@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:skinsstonks_mobile/Screens/Signup/signup_screen.dart';
-import 'package:skinsstonks_mobile/components/background.dart';
-import 'package:skinsstonks_mobile/components/have_account_check.dart';
-import 'package:skinsstonks_mobile/components/rounded_button.dart';
+import 'package:skinstonks_mobile/Screens/Signup/signup_screen.dart';
+import 'package:skinstonks_mobile/components/background.dart';
+import 'package:skinstonks_mobile/components/have_account_check.dart';
+import 'package:skinstonks_mobile/components/rounded_button.dart';
 
 class Body extends StatelessWidget {
   @override

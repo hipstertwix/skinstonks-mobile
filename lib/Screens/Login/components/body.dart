@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'file:///E:/FlutterDev/Projects/skinsstonks_mobile/lib/components/background.dart';
-import 'package:skinsstonks_mobile/Screens/Login/components/login_form.dart';
+import 'package:skinstonks_mobile/components/background.dart';
+import 'package:skinstonks_mobile/Screens/Login/components/login_form.dart';
 
 class Body extends StatelessWidget {
   const Body({

@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:skinsstonks_mobile/components/password_input.dart';
-import 'package:skinsstonks_mobile/components/rounded_button.dart';
-import 'package:skinsstonks_mobile/components/rounded_input.dart';
-import 'package:skinsstonks_mobile/constants.dart';
-import 'package:skinsstonks_mobile/model/user/register_user_data.dart';
-import 'package:skinsstonks_mobile/services/login.dart';
+import 'package:skinstonks_mobile/components/password_input.dart';
+import 'package:skinstonks_mobile/components/rounded_button.dart';
+import 'package:skinstonks_mobile/components/rounded_input.dart';
+import 'package:skinstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/model/user/register_user_data.dart';
+import 'package:skinstonks_mobile/services/login.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -26,10 +26,7 @@ class _RegisterFormState extends State<RegisterForm> {
   submit() async {
     setState(() => loading = true);
     RegisterUserData registerUserData = new RegisterUserData(
-        _username.value.text,
-        _email.value.text,
-        _password.value.text,
-        _confirmPassword.value.text);
+        _username.value.text, _email.value.text, _password.value.text, _confirmPassword.value.text);
     Response response = await LoginService.registerNewUser(registerUserData);
     setState(() {
       errorMessage = response.body;
@@ -44,10 +41,7 @@ class _RegisterFormState extends State<RegisterForm> {
         key: _formKey,
         child: Column(
           children: [
-            RoundedInput(
-                hintText: "Username",
-                onchange: (value) {},
-                controller: _username),
+            RoundedInput(hintText: "Username", onchange: (value) {}, controller: _username),
             RoundedInput(
               hintText: "Email",
               onchange: (value) {},

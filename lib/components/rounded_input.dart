@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'text_field_container.dart';
-import 'package:skinsstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/constants.dart';
 
 class RoundedInput extends StatelessWidget {
   final String hintText;
@@ -8,10 +8,7 @@ class RoundedInput extends StatelessWidget {
   final TextEditingController controller;
 
   const RoundedInput(
-      {Key? key,
-      required this.hintText,
-      required this.onchange,
-      required this.controller})
+      {Key? key, required this.hintText, required this.onchange, required this.controller})
       : super(key: key);
 
   @override

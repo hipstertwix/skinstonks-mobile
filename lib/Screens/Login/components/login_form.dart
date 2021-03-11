@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:skinsstonks_mobile/components/password_input.dart';
-import 'package:skinsstonks_mobile/components/rounded_button.dart';
-import 'package:skinsstonks_mobile/components/rounded_input.dart';
-import 'package:skinsstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/components/password_input.dart';
+import 'package:skinstonks_mobile/components/rounded_button.dart';
+import 'package:skinstonks_mobile/components/rounded_input.dart';
+import 'package:skinstonks_mobile/constants.dart';
 
 class LoginForm extends StatefulWidget {
   @override

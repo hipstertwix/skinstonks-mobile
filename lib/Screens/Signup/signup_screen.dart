@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skinsstonks_mobile/common.dart';
+import 'package:skinstonks_mobile/common.dart';
 
 import 'components/body.dart';
 

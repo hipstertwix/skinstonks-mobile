@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'text_field_container.dart';
-import 'package:skinsstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/constants.dart';
 
 class PasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
@@ -8,10 +8,7 @@ class PasswordField extends StatelessWidget {
   final TextEditingController controller;
 
   const PasswordField(
-      {Key? key,
-      required this.onChanged,
-      required this.hintText,
-      required this.controller})
+      {Key? key, required this.onChanged, required this.hintText, required this.controller})
       : super(key: key);
 
   @override

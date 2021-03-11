@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:skinsstonks_mobile/Screens/Login/login_screen.dart';
-import 'package:skinsstonks_mobile/Screens/Signup/components/register_form.dart';
-import 'package:skinsstonks_mobile/components/background.dart';
-import 'package:skinsstonks_mobile/components/or_divider.dart';
-import 'package:skinsstonks_mobile/components/social_icon.dart';
+import 'package:skinstonks_mobile/Screens/Login/login_screen.dart';
+import 'package:skinstonks_mobile/Screens/Signup/components/register_form.dart';
+import 'package:skinstonks_mobile/components/background.dart';
+import 'package:skinstonks_mobile/components/or_divider.dart';
+import 'package:skinstonks_mobile/components/social_icon.dart';
 
 class Body extends StatelessWidget {
   const Body({

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert' show json;
 
-import 'package:skinsstonks_mobile/model/user/register_user_data.dart';
+import 'package:skinstonks_mobile/model/user/register_user_data.dart';
 
 class LoginFailure {
   String message;

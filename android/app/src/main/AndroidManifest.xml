@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.skinsstonks_mobile">
+    package="com.skinstonks_mobile">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="skinsstonks_mobile"
+        android:label="skinstonks_mobile"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
