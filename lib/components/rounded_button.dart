@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class RoundedButton extends StatelessWidget {
-  final String text;
+  final Widget child;
   final Function press;
   final Color color, textColor;
 
   const RoundedButton({
     Key? key,
-    required this.text,
+    required this.child,
     required this.press,
     this.color = Colors.white,
     this.textColor = kPrimaryColor,
@@ -23,18 +23,14 @@ class RoundedButton extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18),
         child: TextButton(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(
-              EdgeInsets.symmetric(vertical: 18, horizontal: 40),
-            ),
-            backgroundColor: MaterialStateProperty.all(color),
+          style: TextButton.styleFrom(
+            primary: textColor,
+            backgroundColor: color,
+            padding: EdgeInsets.symmetric(vertical: 18, horizontal: 40),
+            textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           onPressed: () => {press()},
-          child: Text(
-            text,
-            style: TextStyle(
-                color: textColor, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
+          child: child,
         ),
       ),
     );

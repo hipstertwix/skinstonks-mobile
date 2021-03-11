@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Auth',
+      title: 'skinstonks',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: Colors.white,

@@ -33,7 +33,7 @@ class _LoginFormState extends State<LoginForm> {
             controller: _password,
           ),
           RoundedButton(
-            text: "LOGIN",
+            child: Text("LOGIN"),
             color: Colors.white,
             textColor: kPrimaryColor,
             press: () {},

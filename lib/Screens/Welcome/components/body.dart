@@ -4,6 +4,7 @@ import 'package:skinstonks_mobile/Screens/Signup/signup_screen.dart';
 import 'package:skinstonks_mobile/components/background.dart';
 import 'package:skinstonks_mobile/components/have_account_check.dart';
 import 'package:skinstonks_mobile/components/rounded_button.dart';
+import 'package:skinstonks_mobile/constants.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -41,7 +42,8 @@ class Body extends StatelessWidget {
           ),
           SizedBox(height: 0.15 * size.height),
           RoundedButton(
-            text: "GET STARTED",
+            child: Text("GET STARTED"),
+            textColor: kPrimaryColor,
             press: () {
               Navigator.push(
                 context,

@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:skinstonks_mobile/components/password_input.dart';
 import 'package:skinstonks_mobile/components/rounded_button.dart';
 import 'package:skinstonks_mobile/components/rounded_input.dart';
+import 'package:skinstonks_mobile/components/loading_ring.dart';
 import 'package:skinstonks_mobile/constants.dart';
 import 'package:skinstonks_mobile/model/user/register_user_data.dart';
 import 'package:skinstonks_mobile/services/login.dart';
@@ -36,46 +35,37 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    if (!loading) {
-      return Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            RoundedInput(hintText: "Username", onchange: (value) {}, controller: _username),
-            RoundedInput(
-              hintText: "Email",
-              onchange: (value) {},
-              controller: _email,
-            ),
-            PasswordField(
-              hintText: "Password",
-              onChanged: (value) {},
-              controller: _password,
-            ),
-            PasswordField(
-              hintText: "Confirm password",
-              onChanged: (value) {},
-              controller: _confirmPassword,
-            ),
-            RoundedButton(
-              text: "SIGNUP",
-              press: () {
-                submit();
-              },
-              color: Colors.white,
-              textColor: kPrimaryColor,
-            ),
-            Text(errorMessage),
-          ],
-        ),
-      );
-    } else {
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          strokeWidth: 3,
-        ),
-      );
-    }
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          RoundedInput(hintText: "Username", onchange: (value) {}, controller: _username),
+          RoundedInput(
+            hintText: "Email",
+            onchange: (value) {},
+            controller: _email,
+          ),
+          PasswordField(
+            hintText: "Password",
+            onChanged: (value) {},
+            controller: _password,
+          ),
+          PasswordField(
+            hintText: "Confirm password",
+            onChanged: (value) {},
+            controller: _confirmPassword,
+          ),
+          RoundedButton(
+            child: loading ? LoadingRing() : Text('SIGNUP'),
+            press: () {
+              submit();
+            },
+            color: Colors.white,
+            textColor: kPrimaryColor,
+          ),
+          Text(errorMessage),
+        ],
+      ),
+    );
   }
 }
