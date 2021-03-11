@@ -23,17 +23,6 @@ class Body extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: statusBarHeight + 20),
             RegisterForm(),
-            SizedBox(height: size.height * 0.03),
-            OrDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SocialIcon(
-                  icon: Icons.bedtime_sharp,
-                  press: () {},
-                )
-              ],
-            ),
           ],
         ),
       ),

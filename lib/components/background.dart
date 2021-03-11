@@ -15,10 +15,12 @@ class Background extends StatelessWidget {
       width: double.infinity,
       height: size.height,
       decoration: BoxDecoration(
-          gradient: RadialGradient(
-              center: Alignment.topRight,
-              radius: 4,
-              colors: [kBackgroundTopColor, kBackgroundBottomColor])),
+        gradient: LinearGradient(
+          colors: [kBackgroundBottomColor, kBackgroundTopColor],
+          end: Alignment.topRight,
+          begin: Alignment.bottomLeft,
+        ),
+      ),
       child: Stack(
         alignment: alignment,
         children: <Widget>[child],

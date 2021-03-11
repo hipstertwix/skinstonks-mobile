@@ -29,15 +29,19 @@ class PasswordField extends StatelessWidget {
         obscureText: true,
         style: textStyle,
         decoration: InputDecoration(
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          hintText: hintText,
-          hintStyle: textStyle,
-          suffixIcon: Icon(Icons.visibility, color: kPrimaryHeadingColor),
-        ),
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            hintText: hintText,
+            hintStyle: textStyle,
+            suffixIcon: Icon(
+              Icons.visibility,
+              color: Colors.white,
+              size: 18,
+            ),
+            contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 0)),
       ),
     );
   }
