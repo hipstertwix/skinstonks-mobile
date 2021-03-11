@@ -12,7 +12,6 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _username = TextEditingController();
-  TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
@@ -41,11 +40,6 @@ class _RegisterFormState extends State<RegisterForm> {
               onchange: (value) {},
               controller: _username),
           RoundedInput(
-            hintText: "Name",
-            onchange: (value) {},
-            controller: _name,
-          ),
-          RoundedInput(
             hintText: "Email",
             onchange: (value) {},
             controller: _email,
@@ -60,7 +54,12 @@ class _RegisterFormState extends State<RegisterForm> {
             onChanged: (value) {},
             controller: _confirmPassword,
           ),
-          RoundedButton(text: "SIGNUP", press: () {}, color: kPrimaryColor)
+          RoundedButton(
+            text: "SIGNUP",
+            press: () {},
+            color: Colors.white,
+            textColor: kPrimaryColor,
+          )
         ]));
   }
 }

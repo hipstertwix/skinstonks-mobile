@@ -16,20 +16,29 @@ class PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    );
+
     return TextFieldContainer(
-        child: TextFormField(
-      controller: controller,
-      onChanged: onChanged,
-      obscureText: true,
-      decoration: InputDecoration(
+      child: TextFormField(
+        controller: controller,
+        onChanged: onChanged,
+        obscureText: true,
+        style: textStyle,
+        decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           hintText: hintText,
-          icon: Icon(Icons.lock, color: kPrimaryHeadingColor),
-          suffixIcon: Icon(Icons.visibility, color: kPrimaryHeadingColor)),
-    ));
+          hintStyle: textStyle,
+          suffixIcon: Icon(Icons.visibility, color: kPrimaryHeadingColor),
+        ),
+      ),
+    );
   }
 }

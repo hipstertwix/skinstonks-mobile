@@ -24,7 +24,6 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           RoundedInput(
             hintText: "Email",
-            icon: Icons.person,
             onchange: (value) {},
             controller: _email,
           ),
@@ -35,8 +34,8 @@ class _LoginFormState extends State<LoginForm> {
           ),
           RoundedButton(
             text: "LOGIN",
-            color: kPrimaryColor,
-            textColor: Colors.white,
+            color: Colors.white,
+            textColor: kPrimaryColor,
             press: () {},
           ),
         ],

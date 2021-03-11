@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(height: statusBarHeight),
+            SizedBox(height: statusBarHeight + 20),
             LoginForm(),
             SizedBox(height: 10),
           ],
