@@ -9,7 +9,6 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     double statusBarHeight = MediaQuery.of(context).padding.top;
     return Background(
       alignment: Alignment.topCenter,

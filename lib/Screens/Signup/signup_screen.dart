@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/common.dart';
 
-import 'components/body.dart';
+import 'package:skinstonks_mobile/Screens/Signup/components/body.dart';
 
 class SignupScreen extends StatelessWidget {
   @override

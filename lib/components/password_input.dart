@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'text_field_container.dart';
-import 'package:skinstonks_mobile/constants.dart';
 
 class PasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;

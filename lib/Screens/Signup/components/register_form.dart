@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:skinstonks_mobile/components/password_input.dart';
 import 'package:skinstonks_mobile/components/rounded_button.dart';
 import 'package:skinstonks_mobile/components/rounded_input.dart';
@@ -26,11 +25,13 @@ class _RegisterFormState extends State<RegisterForm> {
     setState(() => loading = true);
     RegisterModel registerUserData =
         new RegisterModel(_username.value.text, _email.value.text, _password.value.text);
-    Response response = await AuthService.register(registerUserData);
-    setState(() {
-      errorMessage = response.body;
-      loading = false;
-    });
+    final response = await AuthService.register(registerUserData);
+    if (response.statusCode != 200) {
+      setState(() {
+        errorMessage = response.body;
+        loading = false;
+      });
+    }
   }
 
   @override

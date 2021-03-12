@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skinstonks_mobile/Screens/Welcome/welcome_screen.dart';
+import 'package:skinstonks_mobile/Screens/root.dart';
 import 'package:skinstonks_mobile/constants.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: Colors.white,
           fontFamily: GoogleFonts.montserrat().fontFamily),
-      home: WelcomeScreen(),
+      home: Root(),
     );
   }
 }
