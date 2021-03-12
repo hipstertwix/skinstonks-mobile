@@ -5,8 +5,8 @@ import 'package:skinstonks_mobile/components/rounded_button.dart';
 import 'package:skinstonks_mobile/components/rounded_input.dart';
 import 'package:skinstonks_mobile/components/loading_ring.dart';
 import 'package:skinstonks_mobile/constants.dart';
-import 'package:skinstonks_mobile/model/user/register_user_data.dart';
-import 'package:skinstonks_mobile/services/login.dart';
+import 'package:skinstonks_mobile/model/user/register_model.dart';
+import 'package:skinstonks_mobile/services/auth.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -24,9 +24,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
   submit() async {
     setState(() => loading = true);
-    RegisterUserData registerUserData = new RegisterUserData(
-        _username.value.text, _email.value.text, _password.value.text, _confirmPassword.value.text);
-    Response response = await LoginService.registerNewUser(registerUserData);
+    RegisterModel registerUserData =
+        new RegisterModel(_username.value.text, _email.value.text, _password.value.text);
+    Response response = await AuthService.register(registerUserData);
     setState(() {
       errorMessage = response.body;
       loading = false;
@@ -55,6 +55,16 @@ class _RegisterFormState extends State<RegisterForm> {
             onChanged: (value) {},
             controller: _confirmPassword,
           ),
+          if (errorMessage != "")
+            Container(
+              margin: EdgeInsets.only(top: 10, bottom: 10),
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Text(
+                errorMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
           RoundedButton(
             child: loading ? LoadingRing() : Text('SIGNUP'),
             press: () {
@@ -63,7 +73,6 @@ class _RegisterFormState extends State<RegisterForm> {
             color: Colors.white,
             textColor: kPrimaryColor,
           ),
-          Text(errorMessage),
         ],
       ),
     );
