@@ -40,19 +40,22 @@ class _RegisterFormState extends State<RegisterForm> {
       key: _formKey,
       child: Column(
         children: [
-          RoundedInput(hintText: "Username", onchange: (value) {}, controller: _username),
+          RoundedInput(labelText: "Username", onchange: (value) {}, controller: _username),
           RoundedInput(
-            hintText: "Email",
+            labelText: "Email",
+            icon: Icons.email,
+            iconSize: 21,
+            iconPadding: EdgeInsets.only(right: 9),
             onchange: (value) {},
             controller: _email,
           ),
           PasswordField(
-            hintText: "Password",
+            labelText: "Password",
             onChanged: (value) {},
             controller: _password,
           ),
           PasswordField(
-            hintText: "Confirm password",
+            labelText: "Confirm password",
             onChanged: (value) {},
             controller: _confirmPassword,
           ),

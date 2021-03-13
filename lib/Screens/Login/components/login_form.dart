@@ -57,12 +57,12 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           RoundedInput(
-            hintText: "Username",
+            labelText: "Username",
             onchange: (value) {},
             controller: _username,
           ),
           PasswordField(
-            hintText: "Password",
+            labelText: "Password",
             onChanged: (value) {},
             controller: _password,
           ),
