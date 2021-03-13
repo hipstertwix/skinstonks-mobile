@@ -4,6 +4,7 @@ import 'package:skinstonks_mobile/Screens/Signup/signup_screen.dart';
 import 'package:skinstonks_mobile/components/background.dart';
 import 'package:skinstonks_mobile/components/have_account_check.dart';
 import 'package:skinstonks_mobile/components/rounded_button.dart';
+import 'package:skinstonks_mobile/components/slide_animation.dart';
 import 'package:skinstonks_mobile/constants.dart';
 
 class Body extends StatelessWidget {
@@ -47,7 +48,7 @@ class Body extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignupScreen()),
+                SlidePageRoute(widget: SignupScreen()),
               );
             },
           ),

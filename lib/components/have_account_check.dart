@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/Screens/Login/login_screen.dart';
+import 'package:skinstonks_mobile/components/slide_animation.dart';
 
 class HaveAccountCheck extends StatelessWidget {
   const HaveAccountCheck({
@@ -19,11 +20,7 @@ class HaveAccountCheck extends StatelessWidget {
           onTap: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return LoginScreen();
-                },
-              ),
+              SlidePageRoute(widget: LoginScreen()),
             )
           },
           child: Text(
