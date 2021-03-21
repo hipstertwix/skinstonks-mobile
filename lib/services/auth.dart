@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:skinstonks_mobile/model/user/register_model.dart';
-import 'package:skinstonks_mobile/model/user/login_model.dart';
+import 'package:skinstonks_mobile/models/user/register_model.dart';
+import 'package:skinstonks_mobile/models/user/login_model.dart';
 
 class AuthFailure {
   String message;

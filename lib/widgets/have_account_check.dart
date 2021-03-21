@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/Screens/Login/login_screen.dart';
-import 'package:skinstonks_mobile/components/slide_animation.dart';
+import 'package:skinstonks_mobile/screens/login/index.dart';
+import 'package:skinstonks_mobile/widgets/slide_animation.dart';
 
 class HaveAccountCheck extends StatelessWidget {
   const HaveAccountCheck({

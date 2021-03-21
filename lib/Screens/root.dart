@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
-import 'package:skinstonks_mobile/Screens/Home/home_screen.dart';
-import 'package:skinstonks_mobile/Screens/Welcome/welcome_screen.dart';
+import 'package:skinstonks_mobile/screens/home/index.dart';
+import 'package:skinstonks_mobile/screens/welcome/index.dart';
 import 'package:skinstonks_mobile/services/auth.dart';
 
 class Root extends StatelessWidget {
@@ -11,6 +11,7 @@ class Root extends StatelessWidget {
   final FlutterSecureStorage storage = new FlutterSecureStorage();
 
   Future<String> get checkToken async {
+    //await storage.deleteAll();
     var jwt = await storage.read(key: "jwtToken");
     if (jwt == null) return "";
     var jwtSplit = jwt.split(".");

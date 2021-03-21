@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/components/password_input.dart';
-import 'package:skinstonks_mobile/components/rounded_button.dart';
-import 'package:skinstonks_mobile/components/rounded_input.dart';
-import 'package:skinstonks_mobile/components/loading_ring.dart';
-import 'package:skinstonks_mobile/constants.dart';
-import 'package:skinstonks_mobile/model/user/register_model.dart';
+import 'package:skinstonks_mobile/widgets/password_input.dart';
+import 'package:skinstonks_mobile/widgets/rounded_button.dart';
+import 'package:skinstonks_mobile/widgets/rounded_input.dart';
+import 'package:skinstonks_mobile/widgets/loading_ring.dart';
+import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/models/user/register_model.dart';
 import 'package:skinstonks_mobile/services/auth.dart';
 
 class RegisterForm extends StatefulWidget {

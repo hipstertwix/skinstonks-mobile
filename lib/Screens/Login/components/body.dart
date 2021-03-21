@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/components/background.dart';
+import 'package:skinstonks_mobile/widgets/background.dart';
 import 'package:skinstonks_mobile/Screens/Login/components/login_form.dart';
 
 class Body extends StatelessWidget {

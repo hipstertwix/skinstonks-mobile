@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:skinstonks_mobile/Screens/Signup/signup_screen.dart';
-import 'package:skinstonks_mobile/components/background.dart';
-import 'package:skinstonks_mobile/components/have_account_check.dart';
-import 'package:skinstonks_mobile/components/rounded_button.dart';
-import 'package:skinstonks_mobile/components/slide_animation.dart';
-import 'package:skinstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/screens/signup/index.dart';
+import 'package:skinstonks_mobile/widgets/background.dart';
+import 'package:skinstonks_mobile/widgets/have_account_check.dart';
+import 'package:skinstonks_mobile/widgets/rounded_button.dart';
+import 'package:skinstonks_mobile/widgets/slide_animation.dart';
+import 'package:skinstonks_mobile/config/constants.dart';
 
 class Body extends StatelessWidget {
   @override

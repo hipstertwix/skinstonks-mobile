@@ -1,13 +1,13 @@
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:skinstonks_mobile/Screens/Home/home_screen.dart';
-import 'package:skinstonks_mobile/components/password_input.dart';
-import 'package:skinstonks_mobile/components/rounded_button.dart';
-import 'package:skinstonks_mobile/components/rounded_input.dart';
-import 'package:skinstonks_mobile/components/loading_ring.dart';
-import 'package:skinstonks_mobile/constants.dart';
-import 'package:skinstonks_mobile/model/user/login_model.dart';
+import 'package:skinstonks_mobile/screens/home/index.dart';
+import 'package:skinstonks_mobile/widgets/password_input.dart';
+import 'package:skinstonks_mobile/widgets/rounded_button.dart';
+import 'package:skinstonks_mobile/widgets/rounded_input.dart';
+import 'package:skinstonks_mobile/widgets/loading_ring.dart';
+import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/models/user/login_model.dart';
 import 'package:skinstonks_mobile/services/auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

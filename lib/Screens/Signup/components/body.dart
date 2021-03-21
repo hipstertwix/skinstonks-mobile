@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:skinstonks_mobile/Screens/Signup/components/register_form.dart';
-import 'package:skinstonks_mobile/components/background.dart';
+import 'package:skinstonks_mobile/widgets/background.dart';
 
 class Body extends StatelessWidget {
   const Body({

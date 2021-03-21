@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/constants.dart';
+import 'package:skinstonks_mobile/config/constants.dart';
 
 class Background extends StatelessWidget {
   final Widget child;
