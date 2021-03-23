@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar getSkinStonksAppBar(String titleText) {
+AppBar secondaryAppBar(String titleText) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,

@@ -2,16 +2,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
-import 'package:skinstonks_mobile/screens/home/index.dart';
 import 'package:skinstonks_mobile/screens/welcome/index.dart';
+import 'package:skinstonks_mobile/screens/wrapper.dart';
 import 'package:skinstonks_mobile/services/auth.dart';
 
-class Root extends StatelessWidget {
-  Root({Key? key}) : super(key: key);
+class SplashScreen extends StatelessWidget {
+  SplashScreen({Key? key}) : super(key: key);
   final FlutterSecureStorage storage = new FlutterSecureStorage();
 
   Future<String> get checkToken async {
-    //await storage.deleteAll();
     var jwt = await storage.read(key: "jwtToken");
     if (jwt == null) return "";
     var jwtSplit = jwt.split(".");
@@ -44,7 +43,7 @@ class Root extends StatelessWidget {
         if (!snapshot.hasData) return CircularProgressIndicator();
         if (snapshot.data != "") {
           var jwt = snapshot.data.toString();
-          return HomeScreen.fromBase64(jwt);
+          return Wrapper();
         } else {
           return WelcomeScreen();
         }

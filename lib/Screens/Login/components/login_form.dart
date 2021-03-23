@@ -32,12 +32,11 @@ class _LoginFormState extends State<LoginForm> {
       final resBody = json.decode(response.body);
       await storage.write(key: "jwtToken", value: resBody['jwtToken']);
       await storage.write(key: "refreshToken", value: resBody['refreshToken']);
-      Navigator.pushAndRemoveUntil(
+      Navigator.pushNamedAndRemoveUntil(
         context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen.fromBase64(resBody['jwtToken']),
-        ),
+        '/home',
         (Route<dynamic> route) => false,
+        arguments: resBody['jwtToken'],
       );
     }
     if (response.statusCode != 200) {
