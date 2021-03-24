@@ -11,6 +11,7 @@ class SplashScreen extends StatelessWidget {
   final FlutterSecureStorage storage = new FlutterSecureStorage();
 
   Future<String> get checkToken async {
+    await storage.deleteAll();
     var jwt = await storage.read(key: "jwtToken");
     if (jwt == null) return "";
     var jwtSplit = jwt.split(".");

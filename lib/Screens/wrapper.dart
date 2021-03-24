@@ -5,6 +5,7 @@ import 'package:skinstonks_mobile/screens/home/index.dart';
 import 'package:skinstonks_mobile/screens/notifications/index.dart';
 import 'package:skinstonks_mobile/screens/settings/index.dart';
 import 'package:skinstonks_mobile/widgets/custom_nav_bar.dart';
+import 'package:skinstonks_mobile/widgets/main_container.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -26,7 +27,9 @@ class _WrapperState extends State<Wrapper> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Center(
-        child: screens[_currentIndex],
+        child: MainContainer(
+          child: screens[_currentIndex],
+        ),
       ),
       bottomNavigationBar: MyCustomNavigationBar(
         items: [

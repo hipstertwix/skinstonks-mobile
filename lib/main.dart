@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:skinstonks_mobile/config/constants.dart';
 import 'package:skinstonks_mobile/routes/index.dart';
 
@@ -14,9 +13,10 @@ class MyApp extends StatelessWidget {
       title: 'skinstonks',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: kScaffoldBackgroundColor,
-          fontFamily: GoogleFonts.montserrat().fontFamily),
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: kScaffoldBackgroundColor,
+        fontFamily: 'Montserrat',
+      ),
       initialRoute: '/',
       onGenerateRoute: routes,
     );

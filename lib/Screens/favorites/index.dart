@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:skinstonks_mobile/widgets/app_header.dart';
 
 class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('This is the favorites screen.'),
+    return Column(
+      children: [
+        MainHeader('Favorites', titleIcon: Icons.favorite_rounded, titleIconSize: 18),
+      ],
     );
   }
 }

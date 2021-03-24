@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/widgets/linear_gradient_mask.dart';
 
 class MyCustomNavigationBar extends StatefulWidget {
   final List<MyCustomNavigationBarItem> items;
@@ -33,15 +34,9 @@ class _MyCustomNavigationBarState extends State<MyCustomNavigationBar> {
         Container(
           margin: EdgeInsets.only(bottom: 40, left: 20, right: 20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
+            borderRadius: BorderRadius.circular(25),
             color: kWhite,
-            boxShadow: [
-              BoxShadow(
-                color: kPrimaryColor.withOpacity(0.2),
-                offset: Offset(0, 20.0),
-                blurRadius: 20.0,
-              ),
-            ],
+            boxShadow: [kBoxShadow],
           ),
           child: Padding(
             padding: const EdgeInsets.only(top: 18.0, bottom: 18.0, right: 5.0, left: 5.0),
@@ -57,7 +52,7 @@ class _MyCustomNavigationBarState extends State<MyCustomNavigationBar> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 13.00, left: 13.00),
-                      child: RadiantGradientMask(
+                      child: LinearGradientMask(
                         selected: widget.currentIndex == i ? true : false,
                         child: Icon(
                           widget.currentIndex == i
@@ -88,25 +83,4 @@ class MyCustomNavigationBarItem {
     required this.icon,
     IconData? selectedIcon,
   }) : selectedIcon = selectedIcon ?? icon;
-}
-
-class RadiantGradientMask extends StatelessWidget {
-  final Widget child;
-  final bool selected;
-  RadiantGradientMask({required this.child, required this.selected});
-
-  @override
-  Widget build(BuildContext context) {
-    return !selected
-        ? child
-        : ShaderMask(
-            blendMode: BlendMode.srcATop,
-            shaderCallback: (bounds) => LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [kLinearGradientLightColor, kLinearGradientDarkColor],
-            ).createShader(bounds),
-            child: child,
-          );
-  }
 }
