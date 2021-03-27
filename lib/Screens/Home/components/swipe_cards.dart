@@ -155,7 +155,10 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
                   : frontCardAlign.x),
           child: SizedBox.fromSize(
             size: widget._cardSizes[index],
-            child: widget._cardBuilder(context, widget._totalNum - realIndex - 1, true),
+            child: widget._cardBuilder(
+              context,
+              widget._totalNum - realIndex - 1,
+            ),
           ),
         ),
       );
@@ -188,7 +191,6 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
         child: widget._cardBuilder(
           context,
           widget._totalNum - realIndex - 1,
-          false,
         ),
       ),
     );
@@ -332,7 +334,7 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
   }
 }
 
-typedef CardBuilder = Widget Function(BuildContext context, int index, bool isFrontCard);
+typedef CardBuilder = Widget Function(BuildContext context, int index);
 
 enum CardSwipeOrientation { left, right, recover, up, down }
 

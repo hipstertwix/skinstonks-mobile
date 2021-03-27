@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/config/constants.dart';
 
 class CardBackgroundPainter extends CustomPainter {
-  final bool isFrontCard;
+  final List<Color> gradientColors;
 
-  CardBackgroundPainter({required this.isFrontCard});
+  CardBackgroundPainter({required this.gradientColors});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -31,16 +31,7 @@ class CardBackgroundPainter extends CustomPainter {
 
     Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
 
-    paint_0_fill.shader = ui.Gradient.linear(
-      Offset(0, 0),
-      Offset(0, size.height),
-      isFrontCard
-          ? [kLinearGradientLightColor.withOpacity(1.0), kLinearGradientDarkColor.withOpacity(1.0)]
-          : [
-              kLinearGradientLightColor.withOpacity(0.45),
-              kLinearGradientDarkColor.withOpacity(0.45)
-            ],
-    );
+    paint_0_fill.shader = ui.Gradient.linear(Offset(0, 0), Offset(0, size.height), gradientColors);
     canvas.drawPath(path_0, paint_0_fill);
   }
 

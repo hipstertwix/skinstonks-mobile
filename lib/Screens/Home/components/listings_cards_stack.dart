@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/config/constants.dart';
 import 'package:skinstonks_mobile/screens/home/components/card_background.dart';
-import 'package:skinstonks_mobile/widgets/swipe_cards.dart';
+import 'package:skinstonks_mobile/screens/home/components/swipe_cards.dart';
 
 class ListingsCardsStack extends StatefulWidget {
   @override
@@ -9,6 +9,8 @@ class ListingsCardsStack extends StatefulWidget {
 }
 
 class _ListingsCardsStackState extends State<ListingsCardsStack> {
+  int frontCardIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,7 +28,10 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> {
         maxHeight: size.width * 0.97,
         minWidth: size.width * 0.75,
         minHeight: 380,
-        cardBuilder: (context, index, isFrontCard) => ListingCard(isFrontCard: isFrontCard),
+        cardBuilder: (context, index) => ListingCard(
+          index,
+          frontCardIndex: frontCardIndex,
+        ),
         cardController: controller = CardController(),
         swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
           if (align.x < 0) {
@@ -36,7 +41,10 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> {
           }
         },
         swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
-          print(orientation);
+          if (orientation != CardSwipeOrientation.recover)
+            setState(() {
+              frontCardIndex = index + 1;
+            });
         },
       ),
     );
@@ -44,11 +52,12 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> {
 }
 
 class ListingCard extends StatelessWidget {
-  final bool isFrontCard;
+  final int index;
+  final int frontCardIndex;
 
-  ListingCard({
-    Key? key,
-    this.isFrontCard = false,
+  ListingCard(
+    this.index, {
+    required this.frontCardIndex,
   });
 
   @override
@@ -59,7 +68,21 @@ class ListingCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         child: CustomPaint(
           size: Size(size, (size * 1.1432748538011694).toDouble()),
-          painter: CardBackgroundPainter(isFrontCard: isFrontCard),
+          painter: CardBackgroundPainter(
+              gradientColors: index == frontCardIndex
+                  ? <Color>[
+                      kLinearGradientLightColor,
+                      kLinearGradientDarkColor,
+                    ]
+                  : index == (frontCardIndex + 1)
+                      ? <Color>[
+                          Color(0xFF989CDF),
+                          Color(0xFF989CDF),
+                        ]
+                      : <Color>[
+                          Color(0xFFB7BAE8),
+                          Color(0xFFB7BAE8),
+                        ]),
           child: Container(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 30, top: 15),
