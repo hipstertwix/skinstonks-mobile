@@ -12,11 +12,7 @@ class LinearGradientMask extends StatelessWidget {
         ? child
         : ShaderMask(
             blendMode: BlendMode.srcATop,
-            shaderCallback: (bounds) => LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [kLinearGradientLightColor, kLinearGradientDarkColor],
-            ).createShader(bounds),
+            shaderCallback: (bounds) => kLinearGradient.createShader(bounds),
             child: child,
           );
   }

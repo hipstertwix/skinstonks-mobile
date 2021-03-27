@@ -24,12 +24,12 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Center(
-        child: MainContainer(
-          child: screens[_currentIndex],
-        ),
+      body: MainContainer(
+        child: screens[_currentIndex],
       ),
       bottomNavigationBar: MyCustomNavigationBar(
         items: [
@@ -60,33 +60,3 @@ class _WrapperState extends State<Wrapper> {
     );
   }
 }
-
-/*CustomNavigationBar(
-        iconSize: 30.0,
-        selectedColor: kPrimaryColor,
-        strokeColor: kPrimaryLightColor,
-        unSelectedColor: kPrimaryLightColor,
-        backgroundColor: Colors.white,
-        borderRadius: Radius.circular(20.0),
-        isFloating: true,
-        items: [
-          CustomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-          ),
-          CustomNavigationBarItem(
-            icon: Icon(Icons.favorite_rounded),
-          ),
-          CustomNavigationBarItem(
-            icon: Icon(Icons.notifications_rounded),
-          ),
-          CustomNavigationBarItem(
-            icon: Icon(Icons.settings_rounded),
-          ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ), */

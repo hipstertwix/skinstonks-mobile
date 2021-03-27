@@ -17,5 +17,11 @@ const kWhite = Color(0xFFF8F8F8);
 const kSidePadding = 30.00;
 const kTopPadding = 35.00;
 
+LinearGradient kLinearGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [kLinearGradientLightColor, kLinearGradientDarkColor],
+);
+
 BoxShadow kBoxShadow =
     BoxShadow(color: kPrimaryColor.withOpacity(0.2), offset: Offset(0, 20.0), blurRadius: 20.0);

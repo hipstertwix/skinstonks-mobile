@@ -15,13 +15,10 @@ class MainContainer extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height,
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: statusBarHeight + kTopPadding, left: kSidePadding, right: kSidePadding),
-        child: Stack(
-          alignment: alignment,
-          children: <Widget>[child],
-        ),
+      padding: EdgeInsets.only(top: statusBarHeight + kTopPadding),
+      child: Stack(
+        alignment: alignment,
+        children: <Widget>[child],
       ),
     );
   }
