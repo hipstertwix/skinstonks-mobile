@@ -28,10 +28,7 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> {
         maxHeight: size.width * 0.97,
         minWidth: size.width * 0.75,
         minHeight: 380,
-        cardBuilder: (context, index) => ListingCard(
-          index,
-          frontCardIndex: frontCardIndex,
-        ),
+        cardBuilder: (context, index) => ListingCard(),
         cardController: controller = CardController(),
         swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
           if (align.x < 0) {
@@ -52,90 +49,61 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> {
 }
 
 class ListingCard extends StatelessWidget {
-  final int index;
-  final int frontCardIndex;
-
-  ListingCard(
-    this.index, {
-    required this.frontCardIndex,
-  });
-
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
     return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: CustomPaint(
-          size: Size(size, (size * 1.1432748538011694).toDouble()),
-          painter: CardBackgroundPainter(
-              gradientColors: index == frontCardIndex
-                  ? <Color>[
-                      kLinearGradientLightColor,
-                      kLinearGradientDarkColor,
-                    ]
-                  : index == (frontCardIndex + 1)
-                      ? <Color>[
-                          Color(0xFF989CDF),
-                          Color(0xFF989CDF),
-                        ]
-                      : <Color>[
-                          Color(0xFFB7BAE8),
-                          Color(0xFFB7BAE8),
-                        ]),
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 30, top: 15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 30, top: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(''),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    center: Alignment.center,
+                    radius: 0.5,
+                    colors: [
+                      const Color(0xFF7478D6),
+                      const Color(0xFF7E82D4).withOpacity(0.7),
+                      const Color(0xFF7E82D4).withOpacity(0.3),
+                      const Color(0xFF595EC1).withOpacity(0.0)
+                    ],
+                    stops: [0.0, 0.35, 0.60, 1.0],
+                  ),
+                ),
+                child: Image.asset(
+                  'assets/images/test.png',
+                  width: 190,
+                ),
+              ),
+              Column(
                 children: [
-                  Text(''),
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        center: Alignment.center,
-                        radius: 0.5,
-                        colors: [
-                          const Color(0xFF7478D6),
-                          const Color(0xFF7E82D4).withOpacity(0.7),
-                          const Color(0xFF7E82D4).withOpacity(0.3),
-                          const Color(0xFF595EC1).withOpacity(0.0)
-                        ],
-                        stops: [0.0, 0.35, 0.60, 1.0],
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 3.0),
+                    child: Text(
+                      'M9 Bayonet | Doppler',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                    ),
-                    child: Image.asset(
-                      'assets/images/test.png',
-                      width: 190,
                     ),
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 3.0),
-                        child: Text(
-                          'M9 Bayonet | Doppler',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        '€7,103.00',
-                        style: TextStyle(
-                          color: kPrimaryLightColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  )
+                  Text(
+                    '€7,103.00',
+                    style: TextStyle(
+                      color: kPrimaryLightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
-              ),
-            ),
+              )
+            ],
           ),
         ),
       ),

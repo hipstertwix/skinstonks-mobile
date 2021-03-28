@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/screens/home/components/card_background.dart';
 
 enum TriggerDirection { none, right, left, up, down }
 
@@ -126,6 +128,8 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
 
   late AnimationController _animationController;
 
+  late AnimationController _fadeAnimationController;
+
   late int _currentFront;
 
   static TriggerDirection? _trigger;
@@ -135,6 +139,52 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
       return Container();
     }
     final index = realIndex - _currentFront;
+    Size size = MediaQuery.of(context).size;
+
+    List<Color> gradientColors = index == widget._stackNum - 1
+        ? <Color>[
+            kLinearGradientLightColor,
+            kLinearGradientDarkColor,
+          ]
+        : index == widget._stackNum - 2
+            ? <Color>[
+                Color(0xFF989CDF),
+                Color(0xFF989CDF),
+              ]
+            : <Color>[
+                Color(0xFFB7BAE8),
+                Color(0xFFB7BAE8),
+              ];
+
+    Animation<Color?> animationColor1 = index == widget._stackNum - 1
+        ? ColorTween(
+            begin: kLinearGradientLightColor,
+            end: kLinearGradientLightColor,
+          ).animate(_animationController.view)
+        : index == widget._stackNum - 2
+            ? ColorTween(
+                begin: Color(0xFF989CDF),
+                end: kLinearGradientLightColor,
+              ).animate(_animationController.view)
+            : ColorTween(
+                begin: Color(0xFFB7BAE8),
+                end: Color(0xFF989CDF),
+              ).animate(_animationController.view);
+
+    Animation<Color?> animationColor2 = index == widget._stackNum - 1
+        ? ColorTween(
+            begin: kLinearGradientDarkColor,
+            end: kLinearGradientDarkColor,
+          ).animate(_animationController.view)
+        : index == widget._stackNum - 2
+            ? ColorTween(
+                begin: Color(0xFF989CDF),
+                end: kLinearGradientDarkColor,
+              ).animate(_animationController.view)
+            : ColorTween(
+                begin: Color(0xFFB7BAE8),
+                end: Color(0xFF989CDF),
+              ).animate(_animationController.view);
 
     if (index == widget._stackNum - 1) {
       return Align(
@@ -155,9 +205,16 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
                   : frontCardAlign.x),
           child: SizedBox.fromSize(
             size: widget._cardSizes[index],
-            child: widget._cardBuilder(
-              context,
-              widget._totalNum - realIndex - 1,
+            child: CustomPaint(
+              size: Size(size.width, (size.width * 1.1432748538011694).toDouble()),
+              painter: CardBackgroundPainter(
+                _animationController.view,
+                gradientColors: gradientColors,
+              ),
+              child: widget._cardBuilder(
+                context,
+                widget._totalNum - realIndex - 1,
+              ),
             ),
           ),
         ),
@@ -188,9 +245,24 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
                 widget._cardSizes[index + 1],
               ).value
             : widget._cardSizes[index],
-        child: widget._cardBuilder(
-          context,
-          widget._totalNum - realIndex - 1,
+        child: FadeTransition(
+          opacity: index == widget._stackNum - 2
+              ? Tween<double>(begin: 1, end: 1).animate(_fadeAnimationController)
+              : Tween<double>(begin: 0, end: 1).animate(_fadeAnimationController),
+          child: CustomPaint(
+            size: Size(size.width, (size.width * 1.1432748538011694).toDouble()),
+            painter: CardBackgroundPainter(
+              _animationController.view,
+              animationColor1: animationColor1,
+              animationColor2: animationColor2,
+              gradientColors:
+                  _animationController.status == AnimationStatus.forward ? null : gradientColors,
+            ),
+            child: widget._cardBuilder(
+              context,
+              widget._totalNum - realIndex - 1,
+            ),
+          ),
         ),
       ),
     );
@@ -240,6 +312,7 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
     if (_animationController.isAnimating || _currentFront + widget._stackNum == 0) {
       return;
     }
+
     _trigger = trigger;
     _animationController.stop();
     _animationController.value = 0.0;
@@ -262,6 +335,7 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
+    _fadeAnimationController.dispose();
     super.dispose();
   }
 
@@ -275,6 +349,14 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
     _currentFront = widget._totalNum - widget._stackNum;
 
     frontCardAlign = widget._cardAligns[widget._cardAligns.length - 1];
+
+    _fadeAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 1000,
+      ),
+    );
+    _fadeAnimationController.value = 1;
 
     _animationController = AnimationController(
       vsync: this,
@@ -331,6 +413,8 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
       _currentFront--;
       frontCardAlign = widget._cardAligns[widget._stackNum - 1];
     });
+    _fadeAnimationController.value = 0;
+    _fadeAnimationController.forward();
   }
 }
 

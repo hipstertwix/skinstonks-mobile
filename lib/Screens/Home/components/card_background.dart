@@ -1,11 +1,19 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
 
 class CardBackgroundPainter extends CustomPainter {
-  final List<Color> gradientColors;
+  final List<Color>? gradientColors;
+  final Animation<Color?>? animationColor1;
+  final Animation<Color?>? animationColor2;
 
-  CardBackgroundPainter({required this.gradientColors});
+  CardBackgroundPainter(
+    Animation<double> animation, {
+    this.animationColor1,
+    this.animationColor2,
+    this.gradientColors,
+  })  : assert((animationColor1 != null && animationColor2 != null) ||
+            (animationColor1 == null && animationColor2 == null && gradientColors != null)),
+        super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -31,12 +39,16 @@ class CardBackgroundPainter extends CustomPainter {
 
     Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
 
-    paint_0_fill.shader = ui.Gradient.linear(Offset(0, 0), Offset(0, size.height), gradientColors);
+    paint_0_fill.shader = ui.Gradient.linear(
+      Offset(0, 0),
+      Offset(0, size.height),
+      gradientColors != null ? gradientColors! : [animationColor1!.value!, animationColor2!.value!],
+    );
     canvas.drawPath(path_0, paint_0_fill);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
