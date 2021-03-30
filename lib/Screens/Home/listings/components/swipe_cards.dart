@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
-import 'package:skinstonks_mobile/screens/home/components/card_background.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
+import 'package:skinstonks_mobile/screens/home/listings/components/card_background.dart';
 
 enum TriggerDirection { none, right, left, up, down }
 

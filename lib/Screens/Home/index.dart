@@ -1,30 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/screens/home/components/listings_cards_stack.dart';
-import 'package:skinstonks_mobile/widgets/action_button.dart';
-import 'package:skinstonks_mobile/widgets/app_header.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:skinstonks_mobile/screens/home/favorites/index.dart';
+import 'package:skinstonks_mobile/screens/home/listings/index.dart';
+import 'package:skinstonks_mobile/screens/home/notifications/index.dart';
+import 'package:skinstonks_mobile/screens/home/settings/index.dart';
+import 'package:skinstonks_mobile/widgets/custom_nav_bar.dart';
+import 'package:skinstonks_mobile/widgets/main_container.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final screens = List<Widget>.unmodifiable([
+    ListingsScreen(),
+    FavoritesScreen(),
+    NotificationsScreen(),
+    SettingsScreen(),
+  ]);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MainHeader(
-          'Listings',
-          titleIcon: Icons.star_rounded,
-          titleIconSize: 23,
-          actionButton: ActionButton(
-            icon: Icons.filter_alt_rounded,
-            iconSize: 24,
-            onPressed: () {},
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: MainContainer(
+        child: screens[_currentIndex],
+      ),
+      bottomNavigationBar: MyCustomNavigationBar(
+        items: [
+          MyCustomNavigationBarItem(
+            icon: EvaIcons.homeOutline,
+            selectedIcon: EvaIcons.home,
           ),
-        ),
-        ListingsCardsStack()
-      ],
+          MyCustomNavigationBarItem(
+            icon: Icons.favorite_outline,
+            selectedIcon: Icons.favorite_rounded,
+          ),
+          MyCustomNavigationBarItem(
+            icon: Icons.notifications_none_rounded,
+            selectedIcon: Icons.notifications_rounded,
+          ),
+          MyCustomNavigationBarItem(
+            icon: Icons.settings_outlined,
+            selectedIcon: Icons.settings_rounded,
+          ),
+        ],
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/widgets/linear_gradient_mask.dart';
 
 class ActionButton extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/routes/slide_page_route.dart';
-import 'package:skinstonks_mobile/screens/signup/index.dart';
+import 'package:skinstonks_mobile/screens/welcome/signup/index.dart';
 import 'package:skinstonks_mobile/widgets/background.dart';
-import 'package:skinstonks_mobile/widgets/have_account_check.dart';
-import 'package:skinstonks_mobile/widgets/rounded_button.dart';
+import 'package:skinstonks_mobile/screens/welcome/components/have_account_check.dart';
+import 'package:skinstonks_mobile/widgets/buttons/rounded_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override

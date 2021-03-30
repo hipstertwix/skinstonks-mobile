@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
 
 class TextFieldContainer extends StatelessWidget {
   final Widget child;

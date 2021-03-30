@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar secondaryAppBar(String titleText) {
+AppBar mainAppBar(String titleText) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,

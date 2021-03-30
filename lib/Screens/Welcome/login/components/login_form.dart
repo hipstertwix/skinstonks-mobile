@@ -1,63 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/widgets/password_input.dart';
-import 'package:skinstonks_mobile/widgets/rounded_button.dart';
-import 'package:skinstonks_mobile/widgets/rounded_input.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+import 'package:skinstonks_mobile/widgets/buttons/rounded_button.dart';
+import 'package:skinstonks_mobile/widgets/forms/password_input.dart';
+import 'package:skinstonks_mobile/widgets/forms/rounded_input.dart';
 import 'package:skinstonks_mobile/widgets/loading_ring.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
-import 'package:skinstonks_mobile/models/user/register_model.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
+import 'package:skinstonks_mobile/models/user/login_model.dart';
 import 'package:skinstonks_mobile/services/auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class RegisterForm extends StatefulWidget {
+class LoginForm extends StatefulWidget {
   @override
-  _RegisterFormState createState() => _RegisterFormState();
+  _LoginFormState createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _LoginFormState extends State<LoginForm> {
+  final storage = new FlutterSecureStorage();
   final _formKey = GlobalKey<FormState>();
   TextEditingController _username = TextEditingController();
-  TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
-  TextEditingController _confirmPassword = TextEditingController();
   String errorMessage = "";
   bool loading = false;
 
-  submit() async {
+  submit(AuthService authService) async {
     setState(() => loading = true);
-    RegisterModel registerUserData =
-        new RegisterModel(_username.value.text, _email.value.text, _password.value.text);
-    final response = await AuthService.register(registerUserData);
-    if (response.statusCode != 200) {
+    LoginModel loginUserData = new LoginModel(_username.value.text, _password.value.text);
+    final response = await authService.login(loginUserData);
+
+    if (response is Response && response.statusCode != 200) {
       setState(() {
         errorMessage = response.body;
-        loading = false;
       });
     }
+
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          RoundedInput(labelText: "Username", onchange: (value) {}, controller: _username),
           RoundedInput(
-            labelText: "Email",
-            icon: Icons.email,
-            iconSize: 21,
-            iconPadding: EdgeInsets.only(right: 9),
+            labelText: "Username",
             onchange: (value) {},
-            controller: _email,
+            controller: _username,
           ),
           PasswordField(
             labelText: "Password",
             onChanged: (value) {},
             controller: _password,
-          ),
-          PasswordField(
-            labelText: "Confirm password",
-            onChanged: (value) {},
-            controller: _confirmPassword,
           ),
           if (errorMessage != "")
             Container(
@@ -70,9 +67,9 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
             ),
           RoundedButton(
-            child: loading ? LoadingRing() : Text('SIGNUP'),
+            child: loading ? LoadingRing() : Text('LOGIN'),
             press: () {
-              submit();
+              submit(authService);
             },
             color: Colors.white,
             textColor: kPrimaryColor,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
-import 'package:skinstonks_mobile/screens/home/components/card_background.dart';
-import 'package:skinstonks_mobile/screens/home/components/swipe_cards.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
+import 'package:skinstonks_mobile/screens/home/listings/components/swipe_cards.dart';
 
 class ListingsCardsStack extends StatefulWidget {
   @override
@@ -51,7 +50,6 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> {
 class ListingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
     return Container(
       child: Container(
         child: Padding(

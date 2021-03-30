@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
 
 class LoadingRing extends StatelessWidget {
   final Color color;

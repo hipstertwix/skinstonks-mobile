@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/config/constants.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
 import 'text_field_container.dart';
 
 class RoundedInput extends StatelessWidget {
