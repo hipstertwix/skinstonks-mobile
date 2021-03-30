@@ -27,8 +27,8 @@ class AuthService {
     this.validateSession();
   }
 
-  void setAuthUser(AuthUser authUser) {
-    this.user = authUser;
+  void setAuthUser(AuthUser? authUser) {
+    this.user = authUser ?? null;
     this._persistUser();
   }
 
@@ -96,6 +96,8 @@ class AuthService {
             favoriteItems: resBody['user']['favorite_items'],
           ),
         ));
+      } else {
+        this.setAuthUser(null);
       }
       return response;
     } catch (e) {
