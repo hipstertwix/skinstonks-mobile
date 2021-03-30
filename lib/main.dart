@@ -19,7 +19,7 @@ class SkinstonksApp extends StatelessWidget {
       providers: [
         Provider<AuthService>(
           create: (_) => AuthService(FlutterSecureStorage()),
-        )
+        ),
       ],
       child: MaterialApp(
         title: 'Skinstonks',

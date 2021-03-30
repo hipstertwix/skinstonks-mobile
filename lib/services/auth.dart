@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:skinstonks_mobile/constants/api_paths.dart';
 import 'package:skinstonks_mobile/locator.dart';
 import 'package:skinstonks_mobile/models/user/auth_user.dart';
 import 'package:skinstonks_mobile/models/user/register_model.dart';
@@ -10,9 +11,6 @@ import 'package:skinstonks_mobile/models/user/user.dart';
 import 'package:skinstonks_mobile/services/navigation_service.dart';
 
 class AuthService {
-  static const String _API = "skinstonks.herokuapp.com";
-  static const String _AUTH_BASE = "/api/auth";
-
   final NavigationService _navigationService = locator<NavigationService>();
 
   FlutterSecureStorage _storage;
@@ -81,7 +79,7 @@ class AuthService {
   Future refreshToken(String refreshToken) async {
     try {
       var response = await http.post(
-        Uri.https(_API, _AUTH_BASE + "/refresh-token"),
+        Uri.https(API_URL, AUTH_BASE + "/refresh-token"),
         headers: {"x-auth-refresh-token": refreshToken, "Content-Type": "application/json"},
       );
       if (response is Response && response.statusCode == 200) {
@@ -109,7 +107,7 @@ class AuthService {
     String body = json.encode(registerModel);
     try {
       var response = await http.post(
-        Uri.https(_API, _AUTH_BASE + "/register"),
+        Uri.https(API_URL, AUTH_BASE + "/register"),
         body: body.toString(),
         headers: {"Content-Type": "application/json"},
       );
@@ -124,7 +122,7 @@ class AuthService {
 
     try {
       var response = await http.post(
-        Uri.https(_API, _AUTH_BASE + "/login"),
+        Uri.https(API_URL, AUTH_BASE + "/login"),
         body: body.toString(),
         headers: {"Content-Type": "application/json"},
       );
