@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 2),
             GestureDetector(
               onTap: () => {
                 Navigator.push(
