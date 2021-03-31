@@ -19,17 +19,19 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
   @override
   void initState() {
     super.initState();
+  }
 
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
-      Future.delayed(Duration(milliseconds: 500), () async {
-        final validateSession =
-            await Provider.of<AuthService>(context, listen: false).validateSession();
-        if (validateSession == true) {
-          Navigator.pushReplacementNamed(context, routes.HomeRoute);
-          return;
-        }
-        Navigator.pushReplacementNamed(context, routes.LoginRoute);
-      });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Future.delayed(Duration(milliseconds: 500), () async {
+      final validateSession =
+          await Provider.of<AuthService>(context, listen: false).validateSession();
+      if (validateSession == true) {
+        Navigator.pushReplacementNamed(context, routes.HomeRoute);
+        return;
+      }
+      Navigator.pushReplacementNamed(context, routes.LoginRoute);
     });
   }
 

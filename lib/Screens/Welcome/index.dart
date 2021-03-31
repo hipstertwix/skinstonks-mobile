@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
-import 'package:skinstonks_mobile/routes/slide_page_route.dart';
+import 'package:skinstonks_mobile/routes/transitions/slide_route.dart';
+import 'package:skinstonks_mobile/screens/welcome/login/index.dart';
 import 'package:skinstonks_mobile/screens/welcome/signup/index.dart';
 import 'package:skinstonks_mobile/widgets/background.dart';
-import 'package:skinstonks_mobile/screens/welcome/components/have_account_check.dart';
 import 'package:skinstonks_mobile/widgets/buttons/rounded_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -42,12 +42,26 @@ class WelcomeScreen extends StatelessWidget {
               press: () {
                 Navigator.push(
                   context,
-                  SlidePageRoute(widget: SignupScreen()),
+                  SlideRoute(enterPage: SignupScreen(), exitPage: this),
                 );
               },
             ),
             SizedBox(height: 10),
-            HaveAccountCheck(),
+            GestureDetector(
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  SlideRoute(enterPage: LoginScreen(), exitPage: this),
+                )
+              },
+              child: Text(
+                "Already have an account? Sign In",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
           ],
         ),
       ),
