@@ -18,31 +18,24 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SvgPicture.asset(
-              "assets/images/Skinstonks_ICON_WHITE.svg",
-              width: size.width * 0.38,
+              "assets/images/Skinstonks_LOGO_WHITE.svg",
+              width: size.width * 0.45,
               color: Colors.white,
+              allowDrawingOutsideViewBox: true,
             ),
             SizedBox(height: 30),
-            Text(
-              "skinstonks",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 38,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(height: 15),
             SizedBox(
               width: 0.75 * size.width,
               child: Text(
                 "Go making big money by registering to this total legit and not scam mobile app.",
                 style: TextStyle(
                   color: Colors.white,
+                  height: 1.5,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 0.15 * size.height),
+            SizedBox(height: 0.17 * size.height),
             RoundedButton(
               child: Text("GET STARTED"),
               textColor: kPrimaryColor,

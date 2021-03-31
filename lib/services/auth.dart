@@ -9,6 +9,7 @@ import 'package:skinstonks_mobile/models/user/register_model.dart';
 import 'package:skinstonks_mobile/models/user/login_model.dart';
 import 'package:skinstonks_mobile/models/user/user.dart';
 import 'package:skinstonks_mobile/services/navigation_service.dart';
+import 'package:skinstonks_mobile/constants/route_paths.dart' as routes;
 
 class AuthService {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -139,7 +140,7 @@ class AuthService {
           ),
         ));
 
-        _navigationService.navigateTo('/home');
+        _navigationService.navigateTo(routes.HomeRoute);
       }
       return response;
     } catch (e) {
@@ -150,7 +151,7 @@ class AuthService {
   void logout() {
     this.user = null;
     this._persistUser();
-    _navigationService.navigateTo('/welcome');
+    _navigationService.navigateTo(routes.LoginRoute);
   }
 }
 
