@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:skinstonks_mobile/providers/listings.dart';
 import 'package:skinstonks_mobile/screens/home/favorites/index.dart';
 import 'package:skinstonks_mobile/screens/home/listings/index.dart';
 import 'package:skinstonks_mobile/screens/home/notifications/index.dart';
 import 'package:skinstonks_mobile/screens/home/settings/index.dart';
-import 'package:skinstonks_mobile/services/auth.dart';
-import 'package:skinstonks_mobile/services/database.dart';
 import 'package:skinstonks_mobile/widgets/custom_nav_bar.dart';
 import 'package:skinstonks_mobile/widgets/main_container.dart';
 
@@ -27,12 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<DatabaseService?>(
-      create: (_) async {
-        final user = await Provider.of<AuthService>(context).getUser();
-        if (user != null) return DatabaseService(jwtToken: user.jwtToken);
-      },
-      initialData: null,
+    return ChangeNotifierProvider<Listings>(
+      create: (_) => Listings(),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         body: MainContainer(

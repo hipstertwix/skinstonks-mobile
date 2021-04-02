@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:skinstonks_mobile/providers/listings.dart';
 import 'package:skinstonks_mobile/screens/home/listings/components/listings_cards_stack.dart';
 import 'package:skinstonks_mobile/widgets/buttons/action_button.dart';
 import 'package:skinstonks_mobile/widgets/app_header.dart';

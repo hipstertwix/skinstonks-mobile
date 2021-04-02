@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -11,12 +12,14 @@ import 'package:skinstonks_mobile/models/user/user.dart';
 import 'package:skinstonks_mobile/services/navigation_service.dart';
 import 'package:skinstonks_mobile/constants/route_paths.dart' as routes;
 
-class AuthService {
+class AuthService with ChangeNotifier {
   final NavigationService _navigationService = locator<NavigationService>();
 
   FlutterSecureStorage _storage;
 
-  AuthUser? user;
+  AuthUser? _user;
+
+  AuthUser? get user => this._user;
 
   AuthService(this._storage) {
     this.initAuthService();
@@ -27,35 +30,36 @@ class AuthService {
   }
 
   void setAuthUser(AuthUser? authUser) {
-    this.user = authUser ?? null;
+    this._user = authUser ?? null;
     this._persistUser();
+    notifyListeners();
   }
 
   void _persistUser() async {
-    if (this.user == null) {
+    if (this._user == null) {
       await _storage.delete(key: 'jwtToken');
       await _storage.delete(key: 'refreshToken');
       await _storage.delete(key: 'user');
       return;
     }
 
-    await _storage.write(key: "jwtToken", value: this.user!.jwtToken);
-    await _storage.write(key: "refreshToken", value: this.user!.refreshToken);
-    await _storage.write(key: "user", value: jsonEncode(this.user!.user.toJson()));
+    await _storage.write(key: "jwtToken", value: this._user!.jwtToken);
+    await _storage.write(key: "refreshToken", value: this._user!.refreshToken);
+    await _storage.write(key: "user", value: jsonEncode(this._user!.user.toJson()));
   }
 
   Future<bool> validateSession() async {
-    this.user = await this.getUser();
-    if (this.user == null) {
+    this._user = await this.getUser();
+    if (this._user == null) {
       return false;
     }
-    var jwtSplit = this.user!.jwtToken.split(".");
+    var jwtSplit = this._user!.jwtToken.split(".");
     var payload = json.decode(ascii.decode(base64.decode(base64.normalize(jwtSplit[1]))));
 
     if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000).isAfter(DateTime.now())) {
       return true;
     } else {
-      final response = await this.refreshToken(this.user!.refreshToken);
+      final response = await this.refreshToken(this._user!.refreshToken);
       if (response is Response && response.statusCode == 200) return true;
       return false;
     }
@@ -149,13 +153,7 @@ class AuthService {
   }
 
   void logout() {
-    this.user = null;
-    this._persistUser();
+    this.setAuthUser(null);
     _navigationService.navigateTo(routes.LoginRoute);
   }
-}
-
-class AuthFailure {
-  String message;
-  AuthFailure(this.message);
 }

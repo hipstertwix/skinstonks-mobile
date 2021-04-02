@@ -1,30 +1,39 @@
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:skinstonks_mobile/constants/api_paths.dart';
+import 'package:skinstonks_mobile/locator.dart';
 import 'package:skinstonks_mobile/models/listing/listing.dart';
+import 'package:skinstonks_mobile/services/auth.dart';
 
-class DatabaseService {
-  DatabaseService({required this.jwtToken});
+class DatabaseService with ChangeNotifier {
+  String? _jwtToken;
 
-  final String jwtToken;
+  DatabaseService() {
+    this._jwtToken = getUserJwtToken();
+  }
 
-  Future<dynamic> getListings() async {
+  String? getUserJwtToken() {
+    final user = locator<AuthService>().user;
+    if (user != null) return user.jwtToken;
+  }
+
+  Future<List<Listing>?> getListings() async {
+    if (this._jwtToken == null) return null;
     try {
       var response = await http.get(
         Uri.https(API_URL, LISTINGS_BASE),
         headers: {
           "Content-Type": "application/json",
-          "x-auth-token": this.jwtToken,
+          "x-auth-token": this._jwtToken!,
         },
       );
-
       var body = json.decode(response.body);
 
       if (response is Response) {
         if (response.statusCode == 200) {
-          List<Listing> listings = <Listing>[];
+          List<Listing> listings = [];
 
           body.forEach((element) {
             listings.add(Listing(
@@ -36,13 +45,12 @@ class DatabaseService {
               withdrawableAt: element['withdrawable_at'],
             ));
           });
-
           return listings;
         }
       }
-      return body;
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 }

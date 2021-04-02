@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/locator.dart';
 import 'package:skinstonks_mobile/routes/index.dart' as router;
@@ -17,8 +16,8 @@ class SkinstonksApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthService>(
-          create: (_) => AuthService(FlutterSecureStorage()),
+        ChangeNotifierProvider<AuthService>(
+          create: (_) => locator<AuthService>(),
         ),
       ],
       child: MaterialApp(
