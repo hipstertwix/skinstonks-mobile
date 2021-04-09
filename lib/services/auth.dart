@@ -20,6 +20,7 @@ class AuthService with ChangeNotifier {
   AuthUser? _user;
 
   AuthUser? get user => this._user;
+  User? get userData => this._user != null ? this._user!.user : null;
 
   AuthService(this._storage) {
     this.initAuthService();
@@ -81,6 +82,23 @@ class AuthService with ChangeNotifier {
     return null;
   }
 
+  Future getUserData() async {
+    if (this._user == null) return;
+    try {
+      var response = await http.get(
+        Uri.https(API_URL, USER_BASE + '/me'),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": this._user!.jwtToken,
+        },
+      );
+      var body = json.decode(response.body);
+      if (response is Response && response.statusCode == 200) return body;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future refreshToken(String refreshToken) async {
     try {
       var response = await http.post(
@@ -97,6 +115,7 @@ class AuthService with ChangeNotifier {
             username: resBody['user']['username'],
             email: resBody['user']['email'],
             favoriteItems: resBody['user']['favorite_items'],
+            dislikedItems: resBody['user']['disliked_items'],
           ),
         ));
       } else {
@@ -141,6 +160,7 @@ class AuthService with ChangeNotifier {
             username: resBody['user']['username'],
             email: resBody['user']['email'],
             favoriteItems: resBody['user']['favorite_items'],
+            dislikedItems: resBody['user']['disliked_items'],
           ),
         ));
 

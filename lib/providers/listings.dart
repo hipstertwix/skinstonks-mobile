@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:skinstonks_mobile/locator.dart';
 import 'package:skinstonks_mobile/models/listing/listing.dart';
+import 'package:skinstonks_mobile/services/auth.dart';
 import 'package:skinstonks_mobile/services/database.dart';
 
 class Listings with ChangeNotifier {
   final DatabaseService _databaseService = DatabaseService();
+  final AuthService _authService = locator<AuthService>();
 
   List<Listing>? _listings;
-  List<Listing>? _favorites;
 
   List<Listing>? get get => this._listings;
-  List<Listing>? get getFavorites => this._favorites;
 
   Listings() {
     this.initListings();
@@ -17,7 +18,7 @@ class Listings with ChangeNotifier {
 
   void initListings() async {
     await this.updateListings();
-    await this.updateFavorites();
+    await this.populateUserListings();
     this.filterListings();
     notifyListeners();
   }
@@ -25,42 +26,42 @@ class Listings with ChangeNotifier {
   void filterListings() {
     if (this._listings == null || this._listings!.isEmpty) return;
 
-    // Remove favorites from listings
-    if (this._favorites!.isNotEmpty) {
-      List toRemove = [];
-      this._listings!.forEach((element) {
-        if (this._favorites!.contains(element)) toRemove.add(element);
-      });
-      this._listings!.removeWhere((e) => toRemove.contains(e));
-    }
+    // Remove favorites/disliked from listings
+    List toRemove = [];
+    List favorites = _authService.userData!.favoriteItems!;
+    List disliked = _authService.userData!.dislikedItems!;
+    this._listings!.forEach((element) {
+      if (favorites.contains(element) || disliked.contains(element)) toRemove.add(element);
+    });
+    this._listings!.removeWhere((e) => toRemove.contains(e));
+
+    // TODO: Filter listings based on the user filters)
   }
 
-  // TODO: Filter listings (example: remove favorited items, or based on the user filters)
   Future<void> updateListings() async {
     this._listings = await _databaseService.getListings();
   }
 
-  Future<void> updateFavorites() async {
-    this._favorites = [];
-    List? favorites = await _databaseService.getFavorites();
-    if (favorites == null) return;
+  Future<void> populateUserListings() async {
+    final userData = await _authService.getUserData();
+    if (userData['favorite_items'] == null || userData['disliked_items'] == null) return;
+    _authService.userData!.favoriteItems = populateListings(userData['favorite_items']);
+    _authService.userData!.dislikedItems = populateListings(userData['disliked_items']);
+  }
+
+  Future<void> swipe(Listing listing, bool swipeIsFavorite) async {
+    await _databaseService.swipeListing(listing, swipeIsFavorite);
+  }
+
+  List<Listing>? populateListings(List ids) {
+    List<Listing> populatedListings = [];
     if (this._listings != null) {
       this._listings!.forEach((element) {
-        if (favorites.contains(element.id)) {
-          this._favorites!.add(element);
+        if (ids.contains(element.id)) {
+          populatedListings.add(element);
         }
       });
     }
-  }
-
-  Future<void> addToFavorites(Listing listing) async {
-    bool addToFavorites = await _databaseService.addToFavorites(listing);
-
-    if (addToFavorites == true) {
-      if (this._favorites == null) this._favorites = [];
-      this._favorites!.add(listing);
-      notifyListeners();
-      print('added to favorites');
-    }
+    return populatedListings;
   }
 }

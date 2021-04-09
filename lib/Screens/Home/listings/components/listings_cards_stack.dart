@@ -55,9 +55,11 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> with TickerProv
                   // SWIPING RIGHT
                 }
               },
-              swipeCompleteCallback: (CardSwipeOrientation orientation, int index) async {
+              swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
                 if (orientation == CardSwipeOrientation.right) {
-                  await listingsProvider.addToFavorites(listings[index]);
+                  listingsProvider.swipe(listings[index], true);
+                } else if (orientation == CardSwipeOrientation.left) {
+                  listingsProvider.swipe(listings[index], false);
                 }
               },
             );
