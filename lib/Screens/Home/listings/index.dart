@@ -12,6 +12,12 @@ class ListingsScreen extends StatefulWidget {
 
 class _ListingsScreenState extends State<ListingsScreen> with TickerProviderStateMixin {
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<Listings>(context, listen: false).filterListings();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

@@ -19,6 +19,44 @@ class DatabaseService with ChangeNotifier {
     if (user != null) return user.jwtToken;
   }
 
+  Future<bool> addToFavorites(Listing listing) async {
+    try {
+      var response = await http.post(
+        Uri.https(API_URL, LISTINGS_BASE + '/favorite/' + listing.id),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": this._jwtToken!,
+        },
+      );
+      if (response is Response && response.statusCode == 200) return true;
+      print(response.body.toString());
+    } catch (e) {
+      print(e.toString());
+    }
+    return false;
+  }
+
+  Future<List?> getFavorites() async {
+    if (this._jwtToken == null) return null;
+    try {
+      var response = await http.get(
+        Uri.https(API_URL, LISTINGS_BASE + '/me'),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": this._jwtToken!,
+        },
+      );
+      var body = json.decode(response.body);
+
+      if (response is Response) {
+        if (response.statusCode == 200) return body;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return null;
+  }
+
   Future<List<Listing>?> getListings() async {
     if (this._jwtToken == null) return null;
     try {
@@ -37,7 +75,7 @@ class DatabaseService with ChangeNotifier {
 
           body.forEach((element) {
             listings.add(Listing(
-              itemId: element['item_id'],
+              id: element['_id'].toString(),
               marketHashName: element['market_hash_name'],
               price: element['price'].toDouble(),
               potentialProfit: element['potential_profit'].toDouble(),

@@ -1,5 +1,5 @@
 class Listing {
-  final String itemId;
+  final String id;
   final String marketHashName;
   final double price;
   final double potentialProfit;
@@ -7,7 +7,7 @@ class Listing {
   final String withdrawableAt;
 
   Listing({
-    required this.itemId,
+    required this.id,
     required this.marketHashName,
     required this.price,
     required this.potentialProfit,
@@ -17,7 +17,7 @@ class Listing {
 
   factory Listing.fromJson(Map<String, dynamic> listingJSON) {
     return Listing(
-      itemId: listingJSON['itemId'],
+      id: listingJSON['_id'],
       marketHashName: listingJSON['marketHashName'],
       price: listingJSON['price'],
       potentialProfit: listingJSON['potentialProfit'],
@@ -28,7 +28,7 @@ class Listing {
 
   Map<String, dynamic> toJson() {
     return {
-      'itemId': itemId,
+      'id': id,
       'marketHashName': marketHashName,
       'price': price,
       'potentialProfit': potentialProfit,
