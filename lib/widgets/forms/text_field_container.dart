@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
 
 class TextFieldContainer extends StatelessWidget {
   final Widget child;
@@ -11,8 +12,11 @@ class TextFieldContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       width: size.width * 0.75,
-      decoration: BoxDecoration(color: Color(0xFF757CDB), borderRadius: BorderRadius.circular(18)),
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: 1, color: kPrimaryTextColor),
+        ),
+      ),
       child: child,
     );
   }

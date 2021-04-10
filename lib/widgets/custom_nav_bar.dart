@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
-import 'package:skinstonks_mobile/widgets/linear_gradient_mask.dart';
 
 class MyCustomNavigationBar extends StatefulWidget {
   final List<MyCustomNavigationBarItem> items;
@@ -16,8 +15,8 @@ class MyCustomNavigationBar extends StatefulWidget {
     this.currentIndex = 0,
     this.onTap,
     this.iconSize = 32.00,
-    this.selectedColor = kPrimaryColor,
-    this.unselectedColor = kPrimaryLightColor,
+    this.selectedColor = kWhite,
+    this.unselectedColor = kPrimaryTextColor,
   }) : super(key: key);
 
   @override
@@ -35,7 +34,7 @@ class _MyCustomNavigationBarState extends State<MyCustomNavigationBar> {
           margin: EdgeInsets.only(bottom: 40, left: 20, right: 20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: kWhite,
+            color: kPrimaryLightColor,
             boxShadow: [kBoxShadow],
           ),
           child: Padding(
@@ -52,17 +51,14 @@ class _MyCustomNavigationBarState extends State<MyCustomNavigationBar> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 13.00, left: 13.00),
-                      child: LinearGradientMask(
-                        selected: widget.currentIndex == i ? true : false,
-                        child: Icon(
-                          widget.currentIndex == i
-                              ? widget.items[i].selectedIcon
-                              : widget.items[i].icon,
-                          size: widget.iconSize,
-                          color: widget.currentIndex == i
-                              ? widget.selectedColor
-                              : widget.unselectedColor,
-                        ),
+                      child: Icon(
+                        widget.currentIndex == i
+                            ? widget.items[i].selectedIcon
+                            : widget.items[i].icon,
+                        size: widget.iconSize,
+                        color: widget.currentIndex == i
+                            ? widget.selectedColor
+                            : widget.unselectedColor,
                       ),
                     ),
                   ),

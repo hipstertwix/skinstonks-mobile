@@ -2,17 +2,14 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class CardBackgroundPainter extends CustomPainter {
-  final List<Color>? gradientColors;
-  final Animation<Color?>? animationColor1;
-  final Animation<Color?>? animationColor2;
+  final Color? color;
+  final Animation<Color?>? animationColor;
 
   CardBackgroundPainter(
     Animation<double> animation, {
-    this.animationColor1,
-    this.animationColor2,
-    this.gradientColors,
-  })  : assert((animationColor1 != null && animationColor2 != null) ||
-            (animationColor1 == null && animationColor2 == null && gradientColors != null)),
+    this.animationColor,
+    this.color,
+  })  : assert((animationColor != null) || (animationColor == null && color != null)),
         super(repaint: animation);
 
   @override
@@ -37,13 +34,12 @@ class CardBackgroundPainter extends CustomPainter {
         size.height * 0.9573743, size.width * 0.8408057, size.height * 0.9718670);
     path.close();
 
-    Paint paintFill = Paint()..style = PaintingStyle.fill;
-
-    paintFill.shader = ui.Gradient.linear(
-      Offset(0, 0),
-      Offset(0, size.height),
-      gradientColors != null ? gradientColors! : [animationColor1!.value!, animationColor2!.value!],
-    );
+    Paint paintFill = Paint()..color = color != null ? color! : animationColor!.value!;
+    // paintFill.shader = ui.Gradient.linear(
+    //   Offset(0, 0),
+    //   Offset(0, size.height),
+    //   gradientColors != null ? gradientColors! : [animationColor1!.value!, animationColor2!.value!],
+    // );
     canvas.drawPath(path, paintFill);
   }
 

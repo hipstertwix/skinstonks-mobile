@@ -74,13 +74,14 @@ class _RegisterFormState extends State<RegisterForm> {
                 style: TextStyle(color: Colors.red),
               ),
             ),
+          SizedBox(height: 12),
           RoundedButton(
-            child: loading ? LoadingRing() : Text('SIGNUP'),
+            child: loading ? LoadingRing(color: kWhite) : Text('SIGNUP'),
             press: () {
               submit(authService);
             },
-            color: Colors.white,
-            textColor: kPrimaryColor,
+            color: kAccentColor,
+            textColor: kWhite,
           ),
         ],
       ),

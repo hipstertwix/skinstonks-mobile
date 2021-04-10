@@ -35,10 +35,11 @@ class WelcomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 0.17 * size.height),
+            SizedBox(height: 0.2 * size.height),
             RoundedButton(
               child: Text("GET STARTED"),
-              textColor: kPrimaryColor,
+              color: kAccentColor,
+              textColor: kWhite,
               press: () {
                 Navigator.push(
                   context,
@@ -46,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(height: 2),
+            SizedBox(height: 12),
             GestureDetector(
               onTap: () => {
                 Navigator.push(
@@ -55,10 +56,11 @@ class WelcomeScreen extends StatelessWidget {
                 )
               },
               child: Text(
-                "Already have an account? Sign In",
+                "LOGIN",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
               ),
             )

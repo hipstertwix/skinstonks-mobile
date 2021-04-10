@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
-import 'package:skinstonks_mobile/widgets/linear_gradient_mask.dart';
 
 class ActionButton extends StatelessWidget {
   final IconData icon;
@@ -18,21 +17,21 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: kWhite,
+        color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [kBoxShadow],
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.1), offset: Offset(0, 10.0), blurRadius: 20.0)
+        ],
       ),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onPressed,
         child: Padding(
           padding: const EdgeInsets.all(8.5),
-          child: LinearGradientMask(
-            selected: true,
-            child: Icon(
-              icon,
-              size: iconSize,
-            ),
+          child: Icon(
+            icon,
+            size: iconSize,
+            color: kWhite,
           ),
         ),
       ),

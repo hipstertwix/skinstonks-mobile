@@ -16,7 +16,7 @@ class PasswordField extends StatelessWidget {
     TextStyle textStyle = TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.bold,
-      color: Colors.white,
+      color: kWhite,
     );
 
     return TextFieldContainer(
@@ -32,12 +32,16 @@ class PasswordField extends StatelessWidget {
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           labelText: labelText,
-          labelStyle: textStyle,
+          labelStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: kPrimaryTextColor,
+          ),
           prefixIcon: Padding(
             padding: EdgeInsets.only(right: 8),
             child: Icon(
               Icons.lock_rounded,
-              color: kPrimaryDarkColor,
+              color: kPrimaryTextColor,
               size: 22,
             ),
           ),
@@ -47,7 +51,7 @@ class PasswordField extends StatelessWidget {
           ),
           suffixIcon: Icon(
             Icons.visibility,
-            color: Colors.white,
+            color: kPrimaryTextColor,
             size: 18,
           ),
         ),

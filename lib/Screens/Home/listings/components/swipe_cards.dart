@@ -141,49 +141,25 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
     final index = realIndex - _currentFront;
     Size size = MediaQuery.of(context).size;
 
-    List<Color> gradientColors = index == widget._stackNum - 1
-        ? <Color>[
-            kLinearGradientLightColor,
-            kLinearGradientDarkColor,
-          ]
+    Color color = index == widget._stackNum - 1
+        ? kPrimaryLightColor
         : index == widget._stackNum - 2
-            ? <Color>[
-                Color(0xFF989CDF),
-                Color(0xFF989CDF),
-              ]
-            : <Color>[
-                Color(0xFFB7BAE8),
-                Color(0xFFB7BAE8),
-              ];
+            ? Color(0xFF313242)
+            : kPrimaryColor;
 
-    Animation<Color?> animationColor1 = index == widget._stackNum - 1
+    Animation<Color?> animationColor = index == widget._stackNum - 1
         ? ColorTween(
-            begin: kLinearGradientLightColor,
-            end: kLinearGradientLightColor,
+            begin: kPrimaryLightColor,
+            end: kPrimaryLightColor,
           ).animate(_animationController.view)
         : index == widget._stackNum - 2
             ? ColorTween(
-                begin: Color(0xFF989CDF),
-                end: kLinearGradientLightColor,
+                begin: Color(0xFF313242),
+                end: kPrimaryLightColor,
               ).animate(_animationController.view)
             : ColorTween(
-                begin: Color(0xFFB7BAE8),
-                end: Color(0xFF989CDF),
-              ).animate(_animationController.view);
-
-    Animation<Color?> animationColor2 = index == widget._stackNum - 1
-        ? ColorTween(
-            begin: kLinearGradientDarkColor,
-            end: kLinearGradientDarkColor,
-          ).animate(_animationController.view)
-        : index == widget._stackNum - 2
-            ? ColorTween(
-                begin: Color(0xFF989CDF),
-                end: kLinearGradientDarkColor,
-              ).animate(_animationController.view)
-            : ColorTween(
-                begin: Color(0xFFB7BAE8),
-                end: Color(0xFF989CDF),
+                begin: kPrimaryColor,
+                end: Color(0xFF313242),
               ).animate(_animationController.view);
 
     if (index == widget._stackNum - 1) {
@@ -209,7 +185,7 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
               size: Size(size.width, (size.width * 1.1432748538011694).toDouble()),
               painter: CardBackgroundPainter(
                 _animationController.view,
-                gradientColors: gradientColors,
+                color: color,
               ),
               child: widget._cardBuilder(
                 context,
@@ -253,10 +229,8 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
             size: Size(size.width, (size.width * 1.1432748538011694).toDouble()),
             painter: CardBackgroundPainter(
               _animationController.view,
-              animationColor1: animationColor1,
-              animationColor2: animationColor2,
-              gradientColors:
-                  _animationController.status == AnimationStatus.forward ? null : gradientColors,
+              animationColor: animationColor,
+              color: _animationController.status == AnimationStatus.forward ? null : color,
             ),
             child: widget._cardBuilder(
               context,

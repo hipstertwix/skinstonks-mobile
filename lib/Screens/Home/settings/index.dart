@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
         MainHeader('Settings', titleIcon: Icons.settings_rounded),
         RoundedButton(
           child: Text('LOGOUT'),
-          gradient: kLinearGradient,
+          color: kAccentColor,
           fontSize: 16,
           textColor: Colors.white,
           press: () {

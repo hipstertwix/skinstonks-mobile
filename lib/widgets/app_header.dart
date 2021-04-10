@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
-import 'package:skinstonks_mobile/widgets/linear_gradient_mask.dart';
 
 class MainHeader extends StatelessWidget {
   final String titleText;
@@ -27,20 +26,18 @@ class MainHeader extends StatelessWidget {
           Row(
             children: [
               if (titleIcon != null)
-                LinearGradientMask(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: Icon(
-                      titleIcon,
-                      color: kPrimaryColor,
-                      size: titleIconSize,
-                    ),
+                Padding(
+                  padding: EdgeInsets.only(right: 5),
+                  child: Icon(
+                    titleIcon,
+                    color: kWhite,
+                    size: titleIconSize,
                   ),
                 ),
               Text(
                 titleText,
                 style: TextStyle(
-                  color: kPrimaryColor,
+                  color: kWhite,
                   fontSize: 21,
                   fontWeight: FontWeight.w700,
                 ),

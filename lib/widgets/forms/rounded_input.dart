@@ -25,11 +25,12 @@ class RoundedInput extends StatelessWidget {
     TextStyle textStyle = TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.bold,
-      color: Colors.white,
+      color: kWhite,
     );
 
     return TextFieldContainer(
       child: TextFormField(
+        autocorrect: false,
         controller: controller,
         style: textStyle,
         decoration: InputDecoration(
@@ -37,7 +38,7 @@ class RoundedInput extends StatelessWidget {
             padding: iconPadding,
             child: Icon(
               icon,
-              color: kPrimaryDarkColor,
+              color: kPrimaryTextColor,
               size: iconSize,
             ),
           ),
@@ -51,7 +52,11 @@ class RoundedInput extends StatelessWidget {
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           labelText: labelText,
-          labelStyle: textStyle,
+          labelStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: kPrimaryTextColor,
+          ),
         ),
       ),
     );

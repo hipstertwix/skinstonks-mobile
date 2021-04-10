@@ -32,6 +32,7 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> with TickerProv
           }
           if (listings.isNotEmpty) {
             return SwipeCards(
+              animDuration: 500,
               allowVerticalMovement: false,
               orientation: AmassOrientation.top,
               totalNum: listings.length,

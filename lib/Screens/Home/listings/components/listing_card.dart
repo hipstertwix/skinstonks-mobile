@@ -31,10 +31,10 @@ class ListingCard extends StatelessWidget {
                     center: Alignment.center,
                     radius: 0.5,
                     colors: [
-                      const Color(0xFF7478D6),
-                      const Color(0xFF7E82D4).withOpacity(0.7),
-                      const Color(0xFF7E82D4).withOpacity(0.3),
-                      const Color(0xFF595EC1).withOpacity(0.0)
+                      const Color(0xFF515263),
+                      const Color(0xFF4B4C60).withOpacity(0.7),
+                      const Color(0xFF4C4D61).withOpacity(0.3),
+                      const Color(0xFF363746).withOpacity(0.0)
                     ],
                     stops: [0.0, 0.35, 0.60, 1.0],
                   ),
@@ -61,7 +61,7 @@ class ListingCard extends StatelessWidget {
                   Text(
                     '\$' + '$price',
                     style: TextStyle(
-                      color: kPrimaryLightColor,
+                      color: kPrimaryTextColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                     ),

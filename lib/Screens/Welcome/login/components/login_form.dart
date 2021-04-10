@@ -66,13 +66,14 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextStyle(color: Colors.red),
               ),
             ),
+          SizedBox(height: 12),
           RoundedButton(
-            child: loading ? LoadingRing() : Text('LOGIN'),
+            child: loading ? LoadingRing(color: kWhite) : Text('LOGIN'),
             press: () {
               submit(authService);
             },
-            color: Colors.white,
-            textColor: kPrimaryColor,
+            color: kAccentColor,
+            textColor: kWhite,
           ),
         ],
       ),
