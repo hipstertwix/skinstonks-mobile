@@ -128,8 +128,6 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
 
   late AnimationController _animationController;
 
-  late AnimationController _fadeAnimationController;
-
   late int _currentFront;
 
   static TriggerDirection? _trigger;
@@ -145,7 +143,9 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
         ? kPrimaryLightColor
         : index == widget._stackNum - 2
             ? Color(0xFF313242)
-            : kPrimaryColor;
+            : index == widget._stackNum - 3
+                ? Color(0xFF2C2D3B)
+                : kPrimaryColor;
 
     Animation<Color?> animationColor = index == widget._stackNum - 1
         ? ColorTween(
@@ -157,10 +157,15 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
                 begin: Color(0xFF313242),
                 end: kPrimaryLightColor,
               ).animate(_animationController.view)
-            : ColorTween(
-                begin: kPrimaryColor,
-                end: Color(0xFF313242),
-              ).animate(_animationController.view);
+            : index == widget._stackNum - 3
+                ? ColorTween(
+                    begin: Color(0xFF2C2D3B),
+                    end: Color(0xFF313242),
+                  ).animate(_animationController.view)
+                : ColorTween(
+                    begin: kPrimaryColor,
+                    end: Color(0xFF2C2D3B),
+                  ).animate(_animationController.view);
 
     if (index == widget._stackNum - 1) {
       return Align(
@@ -221,21 +226,16 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
                 widget._cardSizes[index + 1],
               ).value
             : widget._cardSizes[index],
-        child: FadeTransition(
-          opacity: index == widget._stackNum - 2
-              ? Tween<double>(begin: 1, end: 1).animate(_fadeAnimationController)
-              : Tween<double>(begin: 0, end: 1).animate(_fadeAnimationController),
-          child: CustomPaint(
-            size: Size(size.width, (size.width * 1.1432748538011694).toDouble()),
-            painter: CardBackgroundPainter(
-              _animationController.view,
-              animationColor: animationColor,
-              color: _animationController.status == AnimationStatus.forward ? null : color,
-            ),
-            child: widget._cardBuilder(
-              context,
-              widget._totalNum - realIndex - 1,
-            ),
+        child: CustomPaint(
+          size: Size(size.width, (size.width * 1.1432748538011694).toDouble()),
+          painter: CardBackgroundPainter(
+            _animationController.view,
+            animationColor: animationColor,
+            color: _animationController.status == AnimationStatus.forward ? null : color,
+          ),
+          child: widget._cardBuilder(
+            context,
+            widget._totalNum - realIndex - 1,
           ),
         ),
       ),
@@ -309,7 +309,6 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
-    _fadeAnimationController.dispose();
     super.dispose();
   }
 
@@ -323,14 +322,6 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
     _currentFront = widget._totalNum - widget._stackNum;
 
     frontCardAlign = widget._cardAligns[widget._cardAligns.length - 1];
-
-    _fadeAnimationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        milliseconds: 1000,
-      ),
-    );
-    _fadeAnimationController.value = 1;
 
     _animationController = AnimationController(
       vsync: this,
@@ -387,8 +378,6 @@ class _SwipeCardsState extends State<SwipeCards> with TickerProviderStateMixin {
       _currentFront--;
       frontCardAlign = widget._cardAligns[widget._stackNum - 1];
     });
-    _fadeAnimationController.value = 0;
-    _fadeAnimationController.forward();
   }
 }
 

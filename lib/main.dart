@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/locator.dart';
@@ -20,17 +21,20 @@ class SkinstonksApp extends StatelessWidget {
           create: (_) => locator<AuthService>(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Skinstonks',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: kScaffoldBackgroundColor,
-          fontFamily: 'Montserrat',
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: MaterialApp(
+          title: 'Skinstonks',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: kPrimaryColor,
+            scaffoldBackgroundColor: kScaffoldBackgroundColor,
+            fontFamily: 'Montserrat',
+          ),
+          initialRoute: '/',
+          onGenerateRoute: router.generateRoute,
+          navigatorKey: locator<NavigationService>().navigatorKey,
         ),
-        initialRoute: '/',
-        onGenerateRoute: router.generateRoute,
-        navigatorKey: locator<NavigationService>().navigatorKey,
       ),
     );
   }

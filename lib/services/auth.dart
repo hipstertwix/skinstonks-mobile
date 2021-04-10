@@ -107,7 +107,6 @@ class AuthService with ChangeNotifier {
       );
       if (response is Response && response.statusCode == 200) {
         final resBody = json.decode(response.body);
-        print(resBody);
 
         this.setAuthUser(AuthUser(
           jwtToken: resBody['jwtToken'],
