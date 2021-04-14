@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skinstonks_mobile/constants/ui.dart';
 
 class Background extends StatelessWidget {
   final Widget child;
@@ -14,10 +13,7 @@ class Background extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height,
-      child: Stack(
-        alignment: alignment,
-        children: <Widget>[child],
-      ),
+      child: child,
     );
   }
 }

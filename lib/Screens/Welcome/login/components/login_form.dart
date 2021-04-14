@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:skinstonks_mobile/widgets/buttons/rounded_button.dart';
 import 'package:skinstonks_mobile/widgets/forms/password_input.dart';
@@ -20,18 +19,21 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
-  String errorMessage = "";
   bool loading = false;
 
   submit(AuthService authService) async {
     setState(() => loading = true);
     LoginModel loginUserData = new LoginModel(_username.value.text, _password.value.text);
-    final response = await authService.login(loginUserData);
 
-    if (response is Response && response.statusCode != 200) {
-      setState(() {
-        errorMessage = response.body;
-      });
+    try {
+      await authService.login(loginUserData);
+    } catch (err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(err.toString()),
+          backgroundColor: kErrorColor,
+        ),
+      );
     }
 
     setState(() {
@@ -56,16 +58,6 @@ class _LoginFormState extends State<LoginForm> {
             onChanged: (value) {},
             controller: _password,
           ),
-          if (errorMessage != "")
-            Container(
-              margin: EdgeInsets.only(top: 10, bottom: 10),
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              child: Text(
-                errorMessage,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
           SizedBox(height: 12),
           RoundedButton(
             child: loading ? LoadingRing(color: kWhite) : Text('LOGIN'),

@@ -5,10 +5,17 @@ import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/locator.dart';
 import 'package:skinstonks_mobile/routes/index.dart' as router;
 import 'package:skinstonks_mobile/services/auth.dart';
+import 'package:skinstonks_mobile/services/connection_status.dart';
 import 'package:skinstonks_mobile/services/navigation_service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Connection Status Singleton
+  ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+  connectionStatus.initialize();
+  // Locator
   setupLocator();
+
   runApp(SkinstonksApp());
 }
 

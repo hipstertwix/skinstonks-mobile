@@ -1,19 +1,20 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:skinstonks_mobile/constants/api_paths.dart';
 import 'package:skinstonks_mobile/locator.dart';
 import 'package:skinstonks_mobile/models/user/auth_user.dart';
 import 'package:skinstonks_mobile/models/user/register_model.dart';
 import 'package:skinstonks_mobile/models/user/login_model.dart';
 import 'package:skinstonks_mobile/models/user/user.dart';
+import 'package:skinstonks_mobile/services/api_base_helper.dart';
 import 'package:skinstonks_mobile/services/navigation_service.dart';
 import 'package:skinstonks_mobile/constants/route_paths.dart' as routes;
 
 class AuthService with ChangeNotifier {
   final NavigationService _navigationService = locator<NavigationService>();
+
+  late ApiBaseHelper _apiBaseHelper;
 
   FlutterSecureStorage _storage;
 
@@ -27,7 +28,7 @@ class AuthService with ChangeNotifier {
   }
 
   Future<void> initAuthService() async {
-    this.validateSession();
+    this._apiBaseHelper = ApiBaseHelper(authService: this);
   }
 
   void setAuthUser(AuthUser? authUser) {
@@ -51,18 +52,19 @@ class AuthService with ChangeNotifier {
 
   Future<bool> validateSession() async {
     this._user = await this.getUser();
+
     if (this._user == null) {
       return false;
     }
+
     var jwtSplit = this._user!.jwtToken.split(".");
     var payload = json.decode(ascii.decode(base64.decode(base64.normalize(jwtSplit[1]))));
 
     if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000).isAfter(DateTime.now())) {
       return true;
     } else {
-      final response = await this.refreshToken(this._user!.refreshToken);
-      if (response is Response && response.statusCode == 200) return true;
-      return false;
+      final bool refreshed = await this.refreshToken();
+      return refreshed;
     }
   }
 
@@ -85,90 +87,76 @@ class AuthService with ChangeNotifier {
   Future getUserData() async {
     if (this._user == null) return;
     try {
-      var response = await http.get(
-        Uri.https(API_URL, USER_BASE + '/me'),
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": this._user!.jwtToken,
-        },
-      );
-      var body = json.decode(response.body);
-      if (response is Response && response.statusCode == 200) return body;
-    } catch (e) {
-      print(e.toString());
+      final response = await this._apiBaseHelper.callApi('GET', USER_BASE + "/me");
+      return response;
+    } catch (err) {
+      throw err;
     }
   }
 
-  Future refreshToken(String refreshToken) async {
+  Future<bool> refreshToken() async {
     try {
-      var response = await http.post(
-        Uri.https(API_URL, AUTH_BASE + "/refresh-token"),
-        headers: {"x-auth-refresh-token": refreshToken, "Content-Type": "application/json"},
+      var response = await this._apiBaseHelper.callApi(
+        'POST',
+        AUTH_BASE + "/refresh-token",
+        customHeaders: {"x-auth-refresh-token": this._user!.refreshToken},
       );
-      if (response is Response && response.statusCode == 200) {
-        final resBody = json.decode(response.body);
 
-        this.setAuthUser(AuthUser(
-          jwtToken: resBody['jwtToken'],
-          refreshToken: resBody['refreshToken'],
-          user: User(
-            username: resBody['user']['username'],
-            email: resBody['user']['email'],
-            favoriteItems: resBody['user']['favorite_items'],
-            dislikedItems: resBody['user']['disliked_items'],
-          ),
-        ));
-      } else {
+      if (response == null) {
         this.setAuthUser(null);
+        return false;
       }
-      return response;
-    } catch (e) {
-      print(e.toString());
+
+      this.setAuthUser(AuthUser(
+        jwtToken: response['jwtToken'],
+        refreshToken: response['refreshToken'],
+        user: User(
+          username: response['user']['username'],
+          email: response['user']['email'],
+          favoriteItems: response['user']['favorite_items'],
+          dislikedItems: response['user']['disliked_items'],
+        ),
+      ));
+      return true;
+    } catch (err) {
+      throw err;
     }
   }
 
-  Future<Response?> register(RegisterModel registerModel) async {
-    String body = json.encode(registerModel);
+  Future<void> register(RegisterModel registerModel) async {
     try {
-      var response = await http.post(
-        Uri.https(API_URL, AUTH_BASE + "/register"),
-        body: body.toString(),
-        headers: {"Content-Type": "application/json"},
-      );
-      return response;
-    } catch (e) {
-      print(e.toString());
+      await this._apiBaseHelper.callApi(
+            'POST',
+            AUTH_BASE + "/register",
+            body: registerModel.toJson(),
+          );
+    } catch (err) {
+      throw err;
     }
   }
 
-  Future<Response?> login(LoginModel loginModel) async {
-    String body = json.encode(loginModel);
-
+  Future<void> login(LoginModel loginModel) async {
     try {
-      var response = await http.post(
-        Uri.https(API_URL, AUTH_BASE + "/login"),
-        body: body.toString(),
-        headers: {"Content-Type": "application/json"},
-      );
-      if (response is Response && response.statusCode == 200) {
-        final resBody = json.decode(response.body);
+      var response = await this._apiBaseHelper.callApi(
+            'POST',
+            AUTH_BASE + "/login",
+            body: loginModel.toJson(),
+          );
+      if (response == null) return;
 
-        this.setAuthUser(AuthUser(
-          jwtToken: resBody['jwtToken'],
-          refreshToken: resBody['refreshToken'],
-          user: User(
-            username: resBody['user']['username'],
-            email: resBody['user']['email'],
-            favoriteItems: resBody['user']['favorite_items'],
-            dislikedItems: resBody['user']['disliked_items'],
-          ),
-        ));
-
-        _navigationService.navigateTo(routes.HomeRoute);
-      }
-      return response;
-    } catch (e) {
-      print(e.toString());
+      this.setAuthUser(AuthUser(
+        jwtToken: response['jwtToken'],
+        refreshToken: response['refreshToken'],
+        user: User(
+          username: response['user']['username'],
+          email: response['user']['email'],
+          favoriteItems: response['user']['favorite_items'],
+          dislikedItems: response['user']['disliked_items'],
+        ),
+      ));
+      _navigationService.navigateTo(routes.HomeRoute);
+    } catch (err) {
+      throw err;
     }
   }
 

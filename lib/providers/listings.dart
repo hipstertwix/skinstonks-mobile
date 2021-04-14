@@ -44,13 +44,8 @@ class Listings with ChangeNotifier {
 
   Future<void> populateUserListings() async {
     final userData = await _authService.getUserData();
-    if (userData['favorite_items'] == null || userData['disliked_items'] == null) return;
-    _authService.userData!.favoriteItems = populateListings(userData['favorite_items']);
-    _authService.userData!.dislikedItems = populateListings(userData['disliked_items']);
-  }
-
-  Future<void> swipe(Listing listing, bool swipeIsFavorite) async {
-    await _databaseService.swipeListing(listing, swipeIsFavorite);
+    _authService.userData?.favoriteItems = populateListings(userData?['favorite_items']);
+    _authService.userData?.dislikedItems = populateListings(userData?['disliked_items']);
   }
 
   List<Listing>? populateListings(List ids) {

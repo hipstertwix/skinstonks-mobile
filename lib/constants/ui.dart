@@ -5,10 +5,9 @@ const kPrimaryColor = Color(0xFF292A37);
 const kAccentColor = Color(0xFF3EB0D5);
 const kPrimaryLightColor = Color(0xFF3D3E51);
 const kPrimaryTextColor = Color(0xFF5C5D6E);
-
 const kScaffoldBackgroundColor = kPrimaryColor;
-
 const kWhite = Color(0xFFFFFFFF);
+const kErrorColor = Color(0xFFEF5450);
 
 /* Other */
 const kSidePadding = 30.00;

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/models/listing/listing.dart';
 import 'package:skinstonks_mobile/providers/listings.dart';
 import 'package:skinstonks_mobile/screens/home/listings/components/listing_card.dart';
 import 'package:skinstonks_mobile/screens/home/listings/components/swipe_cards.dart';
+import 'package:skinstonks_mobile/services/api_base_helper.dart';
+import 'package:skinstonks_mobile/services/database.dart';
 import 'package:skinstonks_mobile/widgets/loading_ring.dart';
 
 class ListingsCardsStack extends StatefulWidget {
@@ -13,6 +16,14 @@ class ListingsCardsStack extends StatefulWidget {
 }
 
 class _ListingsCardsStackState extends State<ListingsCardsStack> with TickerProviderStateMixin {
+  final DatabaseService _databaseService = DatabaseService();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<Listings>(context, listen: false).filterListings();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,11 +67,19 @@ class _ListingsCardsStackState extends State<ListingsCardsStack> with TickerProv
                   // SWIPING RIGHT
                 }
               },
-              swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
-                if (orientation == CardSwipeOrientation.right) {
-                  listingsProvider.swipe(listings[index], true);
-                } else if (orientation == CardSwipeOrientation.left) {
-                  listingsProvider.swipe(listings[index], false);
+              swipeCompleteCallback: (CardSwipeOrientation orientation, int index) async {
+                try {
+                  if (orientation == CardSwipeOrientation.right) {
+                    await _databaseService.swipeListing(listings[index], true);
+                  } else if (orientation == CardSwipeOrientation.left) {
+                    await _databaseService.swipeListing(listings[index], false);
+                  }
+                } on AppException catch (e) {
+                  Fluttertoast.showToast(
+                    msg: e.message,
+                    toastLength: Toast.LENGTH_LONG,
+                    fontSize: 16.0,
+                  );
                 }
               },
             );

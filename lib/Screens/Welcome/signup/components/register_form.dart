@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:skinstonks_mobile/widgets/buttons/rounded_button.dart';
 import 'package:skinstonks_mobile/widgets/forms/password_input.dart';
@@ -20,22 +19,27 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
-  String errorMessage = "";
   bool loading = false;
 
   submit(AuthService authService) async {
     setState(() => loading = true);
     RegisterModel registerUserData =
         new RegisterModel(_username.value.text, _email.value.text, _password.value.text);
-    final response = await authService.register(registerUserData);
-    if (response is Response) {
-      if (response.statusCode != 200) {
-        setState(() {
-          errorMessage = response.body;
-          loading = false;
-        });
-      }
+
+    try {
+      await authService.register(registerUserData);
+    } catch (err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(err.toString()),
+          backgroundColor: kErrorColor,
+        ),
+      );
     }
+
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -64,16 +68,6 @@ class _RegisterFormState extends State<RegisterForm> {
             onChanged: (value) {},
             controller: _confirmPassword,
           ),
-          if (errorMessage != "")
-            Container(
-              margin: EdgeInsets.only(top: 10, bottom: 10),
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              child: Text(
-                errorMessage,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
           SizedBox(height: 12),
           RoundedButton(
             child: loading ? LoadingRing(color: kWhite) : Text('SIGNUP'),
