@@ -18,9 +18,6 @@ class Listings with ChangeNotifier {
 
   void initListings() async {
     await this.updateListings();
-    await this.populateUserListings();
-    this.filterListings();
-    notifyListeners();
   }
 
   void filterListings() {
@@ -39,7 +36,14 @@ class Listings with ChangeNotifier {
   }
 
   Future<void> updateListings() async {
+    // Set listings to null and notify listeners (to make loading ring show up)
+    this._listings = null;
+    notifyListeners();
+    // Get the listings from the DB and update
     this._listings = await _databaseService.getListings();
+    await this.populateUserListings();
+    this.filterListings();
+    notifyListeners();
   }
 
   Future<void> populateUserListings() async {
