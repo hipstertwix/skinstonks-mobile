@@ -12,6 +12,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Background(
         alignment: Alignment.center,
         child: Column(

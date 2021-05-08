@@ -38,21 +38,21 @@ class _HomeScreenState extends State<HomeScreen> {
         body: MainContainer(
           child: screens[_currentIndex],
         ),
-        bottomNavigationBar: MyCustomNavigationBar(
+        bottomNavigationBar: CustomNavigationBar(
           items: [
-            MyCustomNavigationBarItem(
+            CustomNavigationBarItem(
               icon: EvaIcons.homeOutline,
               selectedIcon: EvaIcons.home,
             ),
-            MyCustomNavigationBarItem(
+            CustomNavigationBarItem(
               icon: Icons.favorite_outline,
               selectedIcon: Icons.favorite_rounded,
             ),
-            MyCustomNavigationBarItem(
+            CustomNavigationBarItem(
               icon: Icons.notifications_none_rounded,
               selectedIcon: Icons.notifications_rounded,
             ),
-            MyCustomNavigationBarItem(
+            CustomNavigationBarItem(
               icon: Icons.settings_outlined,
               selectedIcon: Icons.settings_rounded,
             ),

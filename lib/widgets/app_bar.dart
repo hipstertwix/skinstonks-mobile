@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skinstonks_mobile/constants/ui.dart';
 
 AppBar mainAppBar(String titleText) {
   return AppBar(

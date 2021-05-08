@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
 import 'package:skinstonks_mobile/services/auth.dart';
-import 'package:skinstonks_mobile/widgets/app_header.dart';
+import 'package:skinstonks_mobile/widgets/home_header.dart';
 import 'package:skinstonks_mobile/widgets/buttons/rounded_button.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -11,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
     final authService = Provider.of<AuthService>(context);
     return Column(
       children: [
-        MainHeader('Settings', titleIcon: Icons.settings_rounded),
+        HomeHeader('Settings', titleIcon: Icons.settings_rounded),
         RoundedButton(
           child: Text('LOGOUT'),
           color: kAccentColor,

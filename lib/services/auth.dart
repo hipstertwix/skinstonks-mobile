@@ -63,8 +63,12 @@ class AuthService with ChangeNotifier {
     if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000).isAfter(DateTime.now())) {
       return true;
     } else {
-      final bool refreshed = await this.refreshToken();
-      return refreshed;
+      try {
+        final bool refreshed = await this.refreshToken();
+        return refreshed;
+      } catch (err) {
+        return false;
+      }
     }
   }
 

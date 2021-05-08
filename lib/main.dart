@@ -34,10 +34,14 @@ class SkinstonksApp extends StatelessWidget {
           title: 'Skinstonks',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primaryColor: kPrimaryColor,
-            scaffoldBackgroundColor: kScaffoldBackgroundColor,
-            fontFamily: 'Montserrat',
-          ),
+              primaryColor: kPrimaryColor,
+              scaffoldBackgroundColor: kScaffoldBackgroundColor,
+              fontFamily: 'Montserrat',
+              textTheme: TextTheme(
+                bodyText2: TextStyle(
+                  color: kPrimaryTextColor,
+                ),
+              )),
           initialRoute: '/',
           onGenerateRoute: router.generateRoute,
           navigatorKey: locator<NavigationService>().navigatorKey,

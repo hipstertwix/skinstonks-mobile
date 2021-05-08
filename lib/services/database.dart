@@ -54,7 +54,8 @@ class DatabaseService with ChangeNotifier {
           withdrawableAt: element['withdrawable_at'],
         ));
       });
-      return listings;
+      List<Listing> reversed = new List.from(listings.reversed);
+      return reversed;
     } catch (err) {
       throw err;
     }

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:skinstonks_mobile/providers/listings.dart';
 import 'package:skinstonks_mobile/screens/home/listings/components/listings_cards_stack.dart';
 import 'package:skinstonks_mobile/widgets/buttons/action_button.dart';
-import 'package:skinstonks_mobile/widgets/app_header.dart';
+import 'package:skinstonks_mobile/widgets/home_header.dart';
 
 class ListingsScreen extends StatefulWidget {
   @override
@@ -15,15 +15,13 @@ class _ListingsScreenState extends State<ListingsScreen> with TickerProviderStat
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MainHeader(
+        HomeHeader(
           'Listings',
           titleIcon: Icons.star_rounded,
           titleIconSize: 23,
           actionButton: ActionButton(
             icon: Icons.refresh_rounded,
-            onPressed: () async {
-              await Provider.of<Listings>(context, listen: false).updateListings();
-            },
+            onPressed: () => Provider.of<Listings>(context, listen: false).updateListings(),
           ),
         ),
         ListingsCardsStack()

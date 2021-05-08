@@ -46,16 +46,23 @@ class Listings with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> populateUserListings() async {
+  Future<void> updateUserListings() async {
     final userData = await _authService.getUserData();
-    _authService.userData?.favoriteItems = populateListings(userData?['favorite_items']);
-    _authService.userData?.dislikedItems = populateListings(userData?['disliked_items']);
+    _authService.userData?.favoriteItems = await populateListings(userData?['favorite_items']);
+    _authService.userData?.dislikedItems = await populateListings(userData?['disliked_items']);
   }
 
-  List<Listing>? populateListings(List ids) {
+  Future<void> populateUserListings() async {
+    final userData = await _authService.getUserData();
+    _authService.userData?.favoriteItems = await populateListings(userData?['favorite_items']);
+    _authService.userData?.dislikedItems = await populateListings(userData?['disliked_items']);
+  }
+
+  Future<List<Listing>?> populateListings(List ids) async {
     List<Listing> populatedListings = [];
-    if (this._listings != null) {
-      this._listings!.forEach((element) {
+    final listings = await _databaseService.getListings();
+    if (listings != null) {
+      listings.forEach((element) {
         if (ids.contains(element.id)) {
           populatedListings.add(element);
         }

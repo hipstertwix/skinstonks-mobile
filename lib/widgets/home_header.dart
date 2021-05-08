@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:skinstonks_mobile/constants/ui.dart';
 
-class MainHeader extends StatelessWidget {
+class HomeHeader extends StatelessWidget {
   final String titleText;
   final IconData? titleIcon;
   final double titleIconSize;
   final Widget? actionButton;
 
-  const MainHeader(
+  const HomeHeader(
     this.titleText, {
     Key? key,
     this.titleIcon,
@@ -18,6 +18,7 @@ class MainHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50,
       padding: EdgeInsets.only(left: kSidePadding, right: kSidePadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +45,7 @@ class MainHeader extends StatelessWidget {
               ),
             ],
           ),
-          actionButton != null ? this.actionButton! : SizedBox(height: 42),
+          if (actionButton != null) this.actionButton!,
         ],
       ),
     );

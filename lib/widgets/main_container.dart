@@ -16,9 +16,9 @@ class MainContainer extends StatelessWidget {
       width: double.infinity,
       height: size.height,
       padding: EdgeInsets.only(top: statusBarHeight + kTopPadding),
-      child: Stack(
-        alignment: alignment,
-        children: <Widget>[child],
+      child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: child,
       ),
     );
   }
